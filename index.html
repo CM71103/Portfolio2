@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -67,35 +68,6 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
-
-/* Custom mouse cursor follower container */
-#custom-cursor-container {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-}
-.cursor-ring {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--accent);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, border-color 0.2s, background-color 0.2s;
-  pointer-events: none;
-  opacity: 0;
-}
-.cursor-dot {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background-color: var(--accent2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 0;
-}
 
 /* ─── SHADER CANVAS ─── */
 #shader-canvas {
@@ -233,7 +205,6 @@ h2.section-title {
   grid-template-columns: 1fr auto;
   gap: var(--space-xl);
   align-items: center;
-  width: 100%;
 }
 
 /* ─── AVATAR ─── */
@@ -260,7 +231,7 @@ h2.section-title {
     transparent 60%,
     var(--accent) 100%
   );
-  animation: spin-ring var(--spin-duration, 8s) linear infinite;
+  animation: spin-ring 8s linear infinite;
   opacity: 0.85;
 }
 @keyframes spin-ring {
@@ -281,7 +252,7 @@ h2.section-title {
   object-position: center top;
   z-index: 1;
   filter: grayscale(15%) contrast(1.05);
-  transition: filter 0.3s, transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: filter 0.3s;
 }
 .avatar-img:hover { filter: grayscale(0%) contrast(1.1); }
 .avatar-badge {
@@ -420,10 +391,6 @@ h1.hero-name {
   bottom: var(--space-lg);
   right: var(--space-lg);
   width: 320px;
-  max-height: 85vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
   background: color-mix(in oklch, var(--surface) 85%, transparent);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -584,10 +551,9 @@ h1.hero-name {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  transition: border-color 0.25s, transform 0.15s ease-out;
+  transition: border-color 0.2s, transform 0.2s;
   position: relative;
   overflow: hidden;
-  transform-style: preserve-3d;
 }
 .project-card::before {
   content: '';
@@ -597,27 +563,12 @@ h1.hero-name {
   background: var(--accent);
   opacity: 0;
   transition: opacity 0.2s;
-  z-index: 2;
-}
-.project-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    color-mix(in oklch, var(--accent) 8%, transparent),
-    transparent 80%
-  );
-  transition: opacity 0.4s ease;
 }
 .project-card:hover {
   border-color: color-mix(in oklch, var(--accent) 40%, var(--border));
+  transform: translateY(-2px);
 }
 .project-card:hover::before { opacity: 1; }
-.project-card:hover::after { opacity: 1; }
 
 /* Local card-level background shader canvas */
 .card-canvas-container {
@@ -627,8 +578,6 @@ h1.hero-name {
   opacity: 0.07;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  width: 100%;
-  height: 100%;
 }
 .project-card:hover .card-canvas-container {
   opacity: 0.15;
@@ -743,7 +692,7 @@ h1.hero-name {
   box-shadow: 0 0 6px var(--accent);
 }
 .sandbox-console {
-  height: 120px;
+  height: 100px;
   overflow-y: auto;
   background: color-mix(in oklch, var(--bg) 95%, transparent);
   border: 1px solid var(--border);
@@ -754,28 +703,6 @@ h1.hero-name {
   margin-bottom: var(--space-sm);
   white-space: pre-wrap;
   scrollbar-width: thin;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.terminal-input-row {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.terminal-prompt {
-  color: var(--accent);
-  white-space: nowrap;
-}
-.terminal-command-input {
-  background: transparent;
-  border: none;
-  color: var(--fg);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  outline: none;
-  flex: 1;
-  width: 100%;
 }
 .sandbox-btn {
   width: 100%;
@@ -817,7 +744,6 @@ h1.hero-name {
   align-items: center;
   padding: 2px 0;
   border-radius: 2px;
-  outline: none;
 }
 .c4-col-btn:hover {
   background: var(--surface2);
@@ -828,49 +754,30 @@ h1.hero-name {
   border-radius: 50%;
   border: 1px solid var(--border);
   background: transparent;
-  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: background-color 0.2s;
 }
 .c4-cell.p1 {
   background-color: var(--accent);
   box-shadow: 0 0 6px var(--accent);
-  transform: scale(1.1);
 }
 .c4-cell.p2 {
   background-color: var(--danger);
   box-shadow: 0 0 6px var(--danger);
-  transform: scale(1.1);
 }
 
 /* FINCAL Chart Canvas */
 .fincal-chart-container {
   position: relative;
-  height: 90px;
+  height: 80px;
   background: color-mix(in oklch, var(--bg) 95%, transparent);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-sm);
   overflow: hidden;
-  cursor: crosshair;
 }
 .fincal-canvas {
   width: 100%;
   height: 100%;
-}
-.fincal-tooltip {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: color-mix(in oklch, var(--surface) 90%, transparent);
-  border: 1px solid var(--border);
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  font-size: 9px;
-  font-family: var(--font-mono);
-  color: var(--fg);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-  z-index: 5;
 }
 
 /* DBMS SQL Query Console */
@@ -889,7 +796,7 @@ h1.hero-name {
   background: var(--surface2);
   border: 1px solid var(--border);
   color: var(--muted);
-  padding: 6px 4px;
+  padding: 4px;
   border-radius: 2px;
   cursor: pointer;
   text-align: left;
@@ -897,7 +804,6 @@ h1.hero-name {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  outline: none;
 }
 .dbms-query-btn.active {
   border-color: var(--accent);
@@ -926,29 +832,6 @@ h1.hero-name {
   color: var(--fg);
   position: sticky;
   top: 0;
-}
-.sql-input-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  margin-top: 6px;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  background: color-mix(in oklch, var(--bg) 95%, transparent);
-  padding: 4px;
-}
-.sql-symbol {
-  color: var(--accent2);
-  font-weight: bold;
-}
-.sql-custom-input {
-  background: transparent;
-  border: none;
-  color: var(--fg);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  outline: none;
-  flex: 1;
 }
 
 /* ─── EDUCATION ─── */
@@ -1197,12 +1080,6 @@ footer {
 </head>
 <body>
 
-<!-- ─── CUSTOM CURSOR ─── -->
-<div id="custom-cursor-container">
-  <div class="cursor-ring" id="custom-cursor-ring"></div>
-  <div class="cursor-dot" id="custom-cursor-dot"></div>
-</div>
-
 <!-- ─── SHADER CANVAS ─── -->
 <div id="shader-canvas"></div>
 
@@ -1251,34 +1128,12 @@ footer {
   </div>
 
   <div class="hud-section">
-    <label class="hud-section-label" for="shader-palette-select">Color Palette Preset</label>
-    <select class="hud-select" id="shader-palette-select">
-      <option value="forest">Deep Forest (Default)</option>
-      <option value="cyberpunk">Cyberpunk Neon</option>
-      <option value="nordic">Nordic Ice</option>
-      <option value="molten">Molten Amber</option>
-      <option value="monocle">Ink &amp; Metal</option>
-    </select>
-  </div>
-
-  <div class="hud-section">
     <label class="hud-section-label" for="shader-pipeline-select">Active GLSL Pipeline</label>
     <select class="hud-select" id="shader-pipeline-select">
-      <option value="meshGradient">Mesh Gradient</option>
-      <option value="liquidMetal">Liquid Metal</option>
-      <option value="gemSmoke">Gem Smoke</option>
-      <option value="heatmap">Heatmap</option>
-      <option value="dithering">Dithering</option>
-      <option value="grainGradient">Grain Gradient</option>
-      <option value="dotOrbit">Dot Orbit</option>
-      <option value="dotGrid">Dot Grid</option>
-      <option value="warp">Warp</option>
-      <option value="waves">Waves</option>
-      <option value="spiral">Spiral</option>
-      <option value="swirl">Swirl</option>
-      <option value="voronoi">Voronoi Cells</option>
-      <option value="smokeRing">Smoke Ring</option>
-      <option value="neuroNoise">Neuro Noise</option>
+      <option value="meshGradient">Mesh Gradient (Blobby flow)</option>
+      <option value="smokeRing">Smoke Ring (Cosmic expansion)</option>
+      <option value="neuroNoise">Neuro Noise (Algorithmic pulses)</option>
+      <option value="dotOrbit">Dot Orbit (Active nodes)</option>
     </select>
   </div>
 
@@ -1292,7 +1147,15 @@ footer {
     </div>
   </div>
 
-  <div id="hud-dynamic-controls"></div>
+  <div class="hud-section">
+    <div class="hud-slider-group">
+      <span class="hud-section-label">Distortion / Shape Factor</span>
+      <span class="hud-slider-val" id="hud-distortion-val">0.55</span>
+    </div>
+    <div class="hud-slider-group">
+      <input type="range" id="shader-distortion-range" min="0.05" max="1" step="0.05" value="0.55">
+    </div>
+  </div>
 
   <div class="hud-section">
     <label class="hud-checkbox-group">
@@ -1329,9 +1192,15 @@ footer {
             <a href="https://github.com/CM71103" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
           </div>
         </div>
+        <!-- Avatar + GPA column -->
         <div class="hero-avatar-col fade-up delay-2">
           <div class="avatar-ring">
-            <img src="chandramouli-headshot.jpg" alt="Allamaraju Naga Lakshmi Purna Chandramouli" class="avatar-img" width="158" height="158">
+            <img
+              src="chandramouli-headshot.jpg"
+              alt="Allamaraju Naga Lakshmi Purna Chandramouli — professional portrait"
+              class="avatar-img"
+              width="158" height="158"
+            >
           </div>
           <div class="avatar-badge">Available 2027</div>
           <div class="hero-gpa" style="margin-top:0;">
@@ -1339,7 +1208,9 @@ footer {
             <div class="hero-gpa-label">CGPA&nbsp;·&nbsp;3rd Year</div>
           </div>
           <div class="hero-meta" style="padding-top:0; align-items:center;">
-            <a href="mailto:cb.sc.u4cse24403@cb.students.amrita.edu">✉ cb.sc.u4cse24403@cb.students.amrita.edu</a>
+            <a href="mailto:cb.sc.u4cse24403@cb.students.amrita.edu">
+              ✉ cb.sc.u4cse24403@cb.students.amrita.edu
+            </a>
             <a href="tel:+919589587799">✆ +91 9589 587 799</a>
           </div>
         </div>
@@ -1348,7 +1219,7 @@ footer {
   </section>
 
   <!-- ─── ABOUT ─── -->
-  <section id="about" aria-label="About">
+  <section id="about" data-od-id="about" aria-label="About">
     <div class="container">
       <p class="eyebrow">01 / About</p>
       <h2 class="section-title">Professional Summary</h2>
@@ -1369,10 +1240,22 @@ footer {
         </div>
         <div class="reveal" style="transition-delay:0.1s">
           <div class="stat-row">
-            <div class="stat-card"><div class="stat-val">9<span class="accent">.10</span></div><div class="stat-label">Current CGPA</div></div>
-            <div class="stat-card"><div class="stat-val">4<span class="accent">+</span></div><div class="stat-label">Projects</div></div>
-            <div class="stat-card"><div class="stat-val">4<span class="accent">yr</span></div><div class="stat-label">B.Tech CSE 2024–2028</div></div>
-            <div class="stat-card"><div class="stat-val">15<span class="accent">+</span></div><div class="stat-label">Technologies</div></div>
+            <div class="stat-card">
+              <div class="stat-val">9<span class="accent">.10</span></div>
+              <div class="stat-label">Current CGPA</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val">4<span class="accent">+</span></div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val">4<span class="accent">yr</span></div>
+              <div class="stat-label">B.Tech CSE<br>2024 – 2028</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val">15<span class="accent">+</span></div>
+              <div class="stat-label">Technologies</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1380,47 +1263,95 @@ footer {
   </section>
 
   <!-- ─── PROJECTS ─── -->
-  <section id="projects" aria-label="Projects">
+  <section id="projects" data-od-id="projects" aria-label="Projects">
     <div class="container">
       <p class="eyebrow">02 / Projects</p>
       <h2 class="section-title">Selected Work &amp; Simulations</h2>
       <div class="projects-grid">
 
-        <article class="project-card reveal" id="card-minicloud">
+        <!-- MiniCloudDock -->
+        <article class="project-card reveal" aria-labelledby="proj1-title" id="card-minicloud">
           <div class="card-canvas-container" id="canvas-minicloud"></div>
           <div class="project-card-content">
             <div class="project-header">
-              <div><p class="project-type">Cloud · DevOps</p><h3 class="project-title">MiniCloudDock</h3></div>
-              <div class="project-links"><a href="https://github.com/CM71103" target="_blank" rel="noopener" class="project-link">GitHub ↗</a></div>
-            </div>
-            <p class="project-desc">Cloud-native container management platform using Docker with automated application deployment, monitoring, logging, and configuration via a web dashboard.</p>
-            <div class="tech-stack"><span class="tech-pill">Docker</span><span class="tech-pill">React</span><span class="tech-pill">TypeScript</span><span class="tech-pill">Node.js</span><span class="tech-pill">Express.js</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">REST APIs</span><span class="tech-pill">Nginx</span><span class="tech-pill">Git</span><span class="tech-pill">Linux</span></div>
-            <div class="card-sandbox" onclick="event.stopPropagation()">
-              <div class="sandbox-header"><span>TERMINAL: root@minicloud:~#</span><div class="sandbox-status"><span class="status-indicator" id="status-minicloud"></span><span id="label-minicloud">OFFLINE</span></div></div>
-              <div class="sandbox-console" id="console-minicloud">
-                <div class="terminal-line" style="color: var(--accent);">MiniCloudDock CLI v1.0.0</div>
-                <div class="terminal-line" style="color: var(--muted); margin-bottom: 6px;">Type 'help' to see available commands.</div>
-                <div id="terminal-history"></div>
-                <div class="terminal-input-row"><span class="terminal-prompt">root@minicloud:~#</span><input type="text" class="terminal-command-input" id="terminal-input" autocomplete="off" spellcheck="false"></div>
+              <div>
+                <p class="project-type">Cloud · DevOps</p>
+                <h3 class="project-title" id="proj1-title">MiniCloudDock</h3>
               </div>
+              <div class="project-links">
+                <a href="https://github.com/CM71103" target="_blank" rel="noopener" class="project-link">GitHub ↗</a>
+              </div>
+            </div>
+            <p class="project-desc">
+              Cloud-native container management platform using Docker with automated application deployment,
+              monitoring, logging, and configuration via a web dashboard. Implemented container lifecycle
+              management, environment variable configuration, and real-time log streaming. Designed RESTful
+              APIs and an intuitive interface to streamline workflows and improve developer productivity.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-pill">Docker</span>
+              <span class="tech-pill">React</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">Node.js</span>
+              <span class="tech-pill">Express.js</span>
+              <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">REST APIs</span>
+              <span class="tech-pill">Nginx</span>
+              <span class="tech-pill">Git</span>
+              <span class="tech-pill">Linux</span>
+            </div>
+            
+            <!-- Interactive Container console -->
+            <div class="card-sandbox" onclick="event.stopPropagation()">
+              <div class="sandbox-header">
+                <span>TERMINAL: root@minicloud:~#</span>
+                <div class="sandbox-status">
+                  <span class="status-indicator" id="status-minicloud"></span>
+                  <span id="label-minicloud">OFFLINE</span>
+                </div>
+              </div>
+              <div class="sandbox-console" id="console-minicloud">MiniCloudDock CLI v1.0.0
+Click 'Deploy Sandbox Node' to initiate virtual host.</div>
               <button class="sandbox-btn" id="btn-minicloud">Deploy Sandbox Node</button>
             </div>
           </div>
         </article>
 
-        <article class="project-card reveal" style="transition-delay:0.1s" id="card-fincal">
+        <!-- FINCAL Hackathon -->
+        <article class="project-card reveal" style="transition-delay:0.1s" aria-labelledby="proj2-title" id="card-fincal">
           <div class="card-canvas-container" id="canvas-fincal"></div>
           <div class="project-card-content">
             <div class="project-header">
-              <div><p class="project-type">Hackathon · FinTech</p><h3 class="project-title">FINCAL — Financial Analytics System</h3></div>
-              <div class="project-links"><a href="https://github.com/CM71103" target="_blank" rel="noopener" class="project-link">GitHub ↗</a></div>
+              <div>
+                <p class="project-type">Hackathon · FinTech</p>
+                <h3 class="project-title" id="proj2-title">FINCAL — Financial Analytics System</h3>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/CM71103" target="_blank" rel="noopener" class="project-link">GitHub ↗</a>
+              </div>
             </div>
-            <p class="project-desc">Competitive hackathon entry focused on real-world financial problem solving. Collaborated in a team to design and prototype scalable analytics solutions under time constraints.</p>
-            <div class="tech-stack"><span class="tech-pill">Python</span><span class="tech-pill">React</span><span class="tech-pill">Node.js</span></div>
+            <p class="project-desc">
+              Competitive hackathon entry focused on real-world financial problem solving. Collaborated in
+              a team to design and prototype scalable analytics solutions under time constraints. Applied
+              analytical thinking and system design principles for structured problem decomposition.
+              Presented technical approach and practical impact to a panel of judges.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-pill">Python</span>
+              <span class="tech-pill">React</span>
+              <span class="tech-pill">Node.js</span>
+            </div>
+            
+            <!-- Interactive Live Chart -->
             <div class="card-sandbox" onclick="event.stopPropagation()">
-              <div class="sandbox-header"><span>ANALYTICS: TICK FNC.USD</span><div class="sandbox-status"><span class="status-indicator active"></span><span id="label-fincal">LIVE STREAM</span></div></div>
-              <div class="fincal-chart-container" id="fincal-chart-box">
-                <div class="fincal-tooltip" id="fincal-tooltip"></div>
+              <div class="sandbox-header">
+                <span>ANALYTICS: TICK FNC.USD</span>
+                <div class="sandbox-status">
+                  <span class="status-indicator active"></span>
+                  <span id="label-fincal">LIVE STREAM</span>
+                </div>
+              </div>
+              <div class="fincal-chart-container">
                 <canvas class="fincal-canvas" id="fincal-live-canvas"></canvas>
               </div>
               <button class="sandbox-btn" id="btn-fincal">Run Stochastic Forecast</button>
@@ -1428,48 +1359,107 @@ footer {
           </div>
         </article>
 
-        <article class="project-card reveal" style="transition-delay:0.15s" id="card-connect4">
+        <!-- Connect 4 -->
+        <article class="project-card reveal" style="transition-delay:0.15s" aria-labelledby="proj3-title" id="card-connect4">
           <div class="card-canvas-container" id="canvas-connect4"></div>
           <div class="project-card-content">
             <div class="project-header">
-              <div><p class="project-type">Algorithms · DAA</p><h3 class="project-title">Connect 4 — DAA Project</h3></div>
-              <div class="project-links"><a href="https://github.com/CM71103" target="_blank" rel="noopener" class="project-link">GitHub ↗</a></div>
+              <div>
+                <p class="project-type">Algorithms · DAA</p>
+                <h3 class="project-title" id="proj3-title">Connect 4 — DAA Project</h3>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/CM71103" target="_blank" rel="noopener" class="project-link">GitHub ↗</a>
+              </div>
             </div>
-            <p class="project-desc">Implemented Connect 4 using optimised algorithmic strategies for performance enhancement. Analysed time complexity and improved search efficiency.</p>
-            <div class="tech-stack"><span class="tech-pill">Java</span><span class="tech-pill">Data Structures</span><span class="tech-pill">Tries</span><span class="tech-pill">Algorithm Design</span></div>
+            <p class="project-desc">
+              Implemented Connect 4 using optimised algorithmic strategies for performance enhancement.
+              Analysed time complexity and improved search efficiency using structured data handling
+              with trie-based optimisations. Demonstrated practical application of Design &amp;
+              Analysis of Algorithms course concepts in an interactive game environment.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-pill">Java</span>
+              <span class="tech-pill">Data Structures</span>
+              <span class="tech-pill">Tries</span>
+              <span class="tech-pill">Algorithm Design</span>
+            </div>
+            
+            <!-- Interactive Connect 4 Mini Solver -->
             <div class="card-sandbox" onclick="event.stopPropagation()">
-              <div class="sandbox-header"><span>SOLVER: ALGO-SOLVER (JAVA)</span><div class="sandbox-status"><span class="status-indicator active"></span><span id="label-connect4">YOUR TURN</span></div></div>
-              <div class="c4-grid" id="c4-grid-board"></div>
+              <div class="sandbox-header">
+                <span>SOLVER: ALGO-SOLVER (JAVA)</span>
+                <div class="sandbox-status">
+                  <span class="status-indicator active"></span>
+                  <span id="label-connect4">YOUR TURN</span>
+                </div>
+              </div>
+              <div class="c4-grid" id="c4-grid-board">
+                <!-- Javascript will render 7 column buttons, each having 6 circle cells -->
+              </div>
               <button class="sandbox-btn" id="btn-connect4">Reset Simulation Board</button>
             </div>
           </div>
         </article>
 
-        <article class="project-card reveal" style="transition-delay:0.2s" id="card-canteen">
+        <!-- Canteen Management System -->
+        <article class="project-card reveal" style="transition-delay:0.2s" aria-labelledby="proj4-title" id="card-canteen">
           <div class="card-canvas-container" id="canvas-canteen"></div>
           <div class="project-card-content">
             <div class="project-header">
-              <div><p class="project-type">Database · Systems</p><h3 class="project-title">Amrita Canteen Management System</h3></div>
-              <div class="project-links"><a href="https://github.com/CM71103" target="_blank" rel="noopener" class="project-link">GitHub ↗</a></div>
+              <div>
+                <p class="project-type">Database · Systems</p>
+                <h3 class="project-title" id="proj4-title">Amrita Canteen Management System</h3>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/CM71103" target="_blank" rel="noopener" class="project-link">GitHub ↗</a>
+              </div>
             </div>
-            <p class="project-desc">Designed a relational database schema normalised up to BCNF ensuring referential integrity. Implemented SQL queries, constraints, and transaction control mechanisms.</p>
-            <div class="tech-stack"><span class="tech-pill">SQL</span><span class="tech-pill">PHP</span><span class="tech-pill">BCNF Normalisation</span><span class="tech-pill">DBMS</span></div>
+            <p class="project-desc">
+              Designed a relational database schema normalised up to BCNF ensuring referential integrity.
+              Implemented SQL queries, constraints, and transaction control mechanisms to maintain data
+              consistency. Led database design, validation, and optimisation efforts across the full
+              project lifecycle from schema design to deployment.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-pill">SQL</span>
+              <span class="tech-pill">PHP</span>
+              <span class="tech-pill">BCNF Normalisation</span>
+              <span class="tech-pill">DBMS</span>
+            </div>
+            
+            <!-- Interactive SQL normalization query simulation -->
             <div class="card-sandbox" onclick="event.stopPropagation()">
-              <div class="sandbox-header"><span>DBMS: POSTGRESQL // BCNF STATUS</span><div class="sandbox-status"><span class="status-indicator active"></span><span id="label-canteen">DB INTEGRITY: 100%</span></div></div>
+              <div class="sandbox-header">
+                <span>DBMS: POSTGRESQL // BCNF STATUS</span>
+                <div class="sandbox-status">
+                  <span class="status-indicator active"></span>
+                  <span id="label-canteen">DB INTEGRITY: 100%</span>
+                </div>
+              </div>
+              
               <div class="dbms-grid">
                 <div class="dbms-queries">
                   <button class="dbms-query-btn active" data-q="1">SELECT MENU</button>
-                  <button class="dbms-query-btn" data-q="2">SELECT STAFF</button>
+                  <button class="dbms-query-btn" data-q="2">SELECT PENDING</button>
                   <button class="dbms-query-btn" data-q="3">CHECK BCNF</button>
                 </div>
                 <div class="dbms-table-container">
                   <table class="dbms-table" id="dbms-table-element">
-                    <thead><tr><th>item_id</th><th>name</th><th>price</th></tr></thead>
-                    <tbody><tr><td>101</td><td>Idli (2 Pcs)</td><td>₹30.00</td></tr><tr><td>102</td><td>Masala Dosa</td><td>₹50.00</td></tr><tr><td>103</td><td>Veg Biryani</td><td>₹75.00</td></tr></tbody>
+                    <thead>
+                      <tr><th>item_id</th><th>name</th><th>price</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>101</td><td>Idli (2 Pcs)</td><td>₹30.00</td></tr>
+                      <tr><td>102</td><td>Masala Dosa</td><td>₹50.00</td></tr>
+                      <tr><td>103</td><td>Veg Biryani</td><td>₹75.00</td></tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
-              <div class="sql-input-row"><span class="sql-symbol">SQL&gt;</span><input type="text" class="sql-custom-input" id="sql-custom-input" placeholder="SELECT * FROM menu; (Press Enter)"></div>
+              <div class="sandbox-btn" style="cursor:default;" id="dbms-query-str">
+                Query: SELECT * FROM menu WHERE category='SOUTH_INDIAN';
+              </div>
             </div>
           </div>
         </article>
@@ -1479,18 +1469,29 @@ footer {
   </section>
 
   <!-- ─── EDUCATION ─── -->
-  <section id="education" aria-label="Education">
+  <section id="education" data-od-id="education" aria-label="Education">
     <div class="container">
       <p class="eyebrow">03 / Education</p>
       <h2 class="section-title">Academic Background</h2>
       <div class="edu-block reveal">
-        <div class="edu-timeline"><div class="edu-dot"></div><div class="edu-line"></div></div>
+        <div class="edu-timeline">
+          <div class="edu-dot"></div>
+          <div class="edu-line"></div>
+        </div>
         <div class="edu-content">
           <h3 class="edu-inst">Amrita Vishwa Vidyapeetham, Coimbatore</h3>
           <p class="edu-degree">B.Tech in Computer Science and Engineering — 3rd Year</p>
-          <div class="edu-meta"><span>2024 — 2028</span><span class="edu-gpa">GPA: 9.10 / 10.00</span></div>
+          <div class="edu-meta">
+            <span>2024 — 2028</span>
+            <span class="edu-gpa">GPA: 9.10 / 10.00</span>
+          </div>
           <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top: var(--space-md);">
-            <span class="skill-tag">Operating Systems</span><span class="skill-tag">Design & Analysis of Algorithms</span><span class="skill-tag">Database Management Systems</span><span class="skill-tag">Data Structures</span><span class="skill-tag">Computer Architecture</span><span class="skill-tag">Discrete Mathematics</span>
+            <span class="skill-tag">Operating Systems</span>
+            <span class="skill-tag">Design & Analysis of Algorithms</span>
+            <span class="skill-tag">Database Management Systems</span>
+            <span class="skill-tag">Data Structures</span>
+            <span class="skill-tag">Computer Architecture</span>
+            <span class="skill-tag">Discrete Mathematics</span>
           </div>
         </div>
       </div>
@@ -1498,339 +1499,344 @@ footer {
   </section>
 
   <!-- ─── SKILLS ─── -->
-  <section id="skills" aria-label="Skills and Technologies">
+  <section id="skills" data-od-id="skills" aria-label="Skills and Technologies">
     <div class="container">
       <p class="eyebrow">04 / Skills</p>
       <h2 class="section-title">Technical Skills</h2>
       <div class="skills-grid">
-        <div class="skill-group reveal"><div class="skill-group-label">Languages</div><div class="skill-list"><span class="skill-tag">C</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">PHP</span><span class="skill-tag">TypeScript</span></div></div>
-        <div class="skill-group reveal" style="transition-delay:0.1s"><div class="skill-group-label">Systems & OS</div><div class="skill-list"><span class="skill-tag">Operating Systems</span><span class="skill-tag">Multithreading</span><span class="skill-tag">Mutexes</span><span class="skill-tag">Semaphores</span><span class="skill-tag">Linux</span><span class="skill-tag">MATLAB</span></div></div>
-        <div class="skill-group reveal" style="transition-delay:0.2s"><div class="skill-group-label">Algorithms & Data</div><div class="skill-list"><span class="skill-tag">DSA</span><span class="skill-tag">DAA</span><span class="skill-tag">Tries</span><span class="skill-tag">DBMS</span><span class="skill-tag">BCNF</span><span class="skill-tag">Transaction Control</span></div></div>
-        <div class="skill-group reveal" style="transition-delay:0.05s"><div class="skill-group-label">Web & Backend</div><div class="skill-list"><span class="skill-tag">React</span><span class="skill-tag">Node.js</span><span class="skill-tag">Express.js</span><span class="skill-tag">REST APIs</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">Nginx</span></div></div>
-        <div class="skill-group reveal" style="transition-delay:0.15s"><div class="skill-group-label">Infrastructure & DevOps</div><div class="skill-list"><span class="skill-tag">Docker</span><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">Container Orchestration</span><span class="skill-tag">Log Streaming</span></div></div>
-        <div class="skill-group reveal" style="transition-delay:0.25s"><div class="skill-group-label">Core CS</div><div class="skill-list"><span class="skill-tag">Complexity Analysis</span><span class="skill-tag">System Design</span><span class="skill-tag">Schema Design</span><span class="skill-tag">Optimisation</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── CONTACT ─── -->
-  <section id="contact" aria-label="Contact">
-    <div class="container">
-      <p class="eyebrow">05 / Contact</p>
-      <div class="contact-grid">
-        <div class="reveal">
-          <h2 class="contact-heading">Let's build<br>something<br><span style="color:var(--accent)">together.</span></h2>
-          <p class="contact-sub">Open to internship opportunities, research collaborations, and interesting engineering challenges. Targeting Google internship cycles — May / July 2027.</p>
-          <a href="mailto:cb.sc.u4cse24403@cb.students.amrita.edu" class="btn btn-primary">Send an Email ↗</a>
+        <div class="skill-group reveal">
+          <div class="skill-group-label">Languages</div>
+          <div class="skill-list">
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">TypeScript</span>
+          </div>
         </div>
-        <div class="reveal" style="transition-delay:0.1s">
-          <div class="contact-links">
-            <a href="mailto:cb.sc.u4cse24403@cb.students.amrita.edu" class="contact-item"><span class="contact-icon">✉</span> cb.sc.u4cse24403@cb.students.amrita.edu</a>
-            <a href="tel:+919589587799" class="contact-item"><span class="contact-icon">✆</span> +91 9589 587 799</a>
-            <a href="https://linkedin.com/in/allamaraju-chandramouli-058734370" target="_blank" rel="noopener" class="contact-item"><span class="contact-icon">in</span> linkedin.com/in/allamaraju-chandramouli-058734370</a>
-            <a href="https://github.com/CM71103" target="_blank" rel="noopener" class="contact-item"><span class="contact-icon">⌥</span> github.com/CM71103</a>
+        <div class="skill-group reveal" style="transition-delay:0.1s">
+          <div class="skill-group-label">Systems & OS</div>
+          <div class="skill-list">
+            <span class="skill-tag">Operating Systems</span>
+            <span class="skill-tag">Multithreading (pthreads)</span>
+            <span class="skill-tag">Mutexes</span>
+            <span class="skill-tag">Semaphores</span>
+            <span class="skill-tag">Deadlock Analysis</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">MATLAB</span>
+          </div>
+        </div>
+        <div class="skill-group reveal" style="transition-delay:0.2s">
+          <div class="skill-group-label">Algorithms & Data</div>
+          <div class="skill-list">
+            <span class="skill-tag">DSA</span>
+            <span class="skill-tag">DAA</span>
+            <span class="skill-tag">Tries</span>
+            <span class="skill-tag">DBMS</span>
+            <span class="skill-tag">BCNF Normalisation</span>
+            <span class="skill-tag">Transaction Control</span>
+          </div>
+        </div>
+        <div class="skill-group reveal" style="transition-delay:0.05s">
+          <div class="skill-group-label">Web & Backend</div>
+          <div class="skill-list">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Express.js</span>
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Nginx</span>
+          </div>
+        </div>
+        <div class="skill-group reveal" style="transition-delay:0.15s">
+          <div class="skill-group-label">Infrastructure & DevOps</div>
+          <div class="skill-list">
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">Container Orchestration</span>
+            <span class="skill-tag">Log Streaming</span>
+          </div>
+        </div>
+        <div class="skill-group reveal" style="transition-delay:0.25s">
+          <div class="skill-group-label">Core CS</div>
+          <div class="skill-list">
+            <span class="skill-tag">Complexity Analysis</span>
+            <span class="skill-tag">System Design</span>
+            <span class="skill-tag">Schema Design</span>
+            <span class="skill-tag">Optimisation</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-</div>
+  <!-- ─── CONTACT ─── -->
+  <section id="contact" data-od-id="contact" aria-label="Contact">
+    <div class="container">
+      <p class="eyebrow">05 / Contact</p>
+      <div class="contact-grid">
+        <div class="reveal">
+          <h2 class="contact-heading">Let's build<br>something<br><span style="color:var(--accent)">together.</span></h2>
+          <p class="contact-sub">
+            Open to internship opportunities, research collaborations,
+            and interesting engineering challenges. Targeting Google internship
+            cycles — May / July 2027.
+          </p>
+          <a href="mailto:cb.sc.u4cse24403@cb.students.amrita.edu" class="btn btn-primary">Send an Email ↗</a>
+        </div>
+        <div class="reveal" style="transition-delay:0.1s">
+          <div class="contact-links">
+            <a href="mailto:cb.sc.u4cse24403@cb.students.amrita.edu" class="contact-item">
+              <span class="contact-icon">✉</span>
+              cb.sc.u4cse24403@cb.students.amrita.edu
+            </a>
+            <a href="tel:+919589587799" class="contact-item">
+              <span class="contact-icon">✆</span>
+              +91 9589 587 799
+            </a>
+            <a href="https://linkedin.com/in/allamaraju-chandramouli-058734370" target="_blank" rel="noopener" class="contact-item">
+              <span class="contact-icon">in</span>
+              linkedin.com/in/allamaraju-chandramouli-058734370
+            </a>
+            <a href="https://github.com/CM71103" target="_blank" rel="noopener" class="contact-item">
+              <span class="contact-icon">⌥</span>
+              github.com/CM71103
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-wrap -->
 
 <footer>
   <span>Allamaraju Naga Lakshmi Purna Chandramouli · B.Tech CSE · Amrita Vishwa Vidyapeetham</span>
   <span style="font-variant-numeric:tabular-nums">© 2025</span>
 </footer>
 
-<!-- ═══ MAIN SHADER ENGINE ═══ -->
+<!-- ─── SHADER — @paper-design/shaders (vanilla) via ESM CDN ─── -->
 <script type="module">
+/**
+ * Real @paper-design/shaders package — MeshGradient + Warp effects
+ * Loaded via ESM from jsDelivr CDN.
+ * Docs: https://shaders.paper.design
+ */
 import {
-  ShaderMount, meshGradientFragmentShader, smokeRingFragmentShader,
-  neuroNoiseFragmentShader, dotOrbitFragmentShader, ditheringFragmentShader,
-  dotGridFragmentShader, gemSmokeFragmentShader, grainGradientFragmentShader,
-  heatmapFragmentShader, liquidMetalFragmentShader, spiralFragmentShader,
-  swirlFragmentShader, voronoiFragmentShader, warpFragmentShader, wavesFragmentShader,
-  emptyPixel, getShaderColorFromString
+  ShaderMount,
+  meshGradientFragmentShader,
+  smokeRingFragmentShader,
+  neuroNoiseFragmentShader,
+  dotOrbitFragmentShader,
+  getShaderColorFromString
 } from 'https://cdn.jsdelivr.net/npm/@paper-design/shaders@latest/dist/index.js';
 
 (function () {
   const container = document.getElementById('shader-canvas');
   if (!container) return;
 
-  const colorPresets = {
-    forest: { dark: ['#0d2a1a','#0a1e3d','#123d2b','#091b33','#18503a','#0e2f48'], light: ['#c8edd8','#bdd8f0','#b5e8df','#c2ecd4','#bfdbf7','#cdf2e3'] },
-    cyberpunk: { dark: ['#0b091a','#111d4a','#3700b3','#00f5d4','#03dac6','#ff007f'], light: ['#f8f6ff','#e0d8ff','#ffdcf2','#e6fff9','#e0ffe8','#fff0f5'] },
-    nordic: { dark: ['#0d1b2a','#1b263b','#415a77','#778da9','#0b3c5d','#328cc1'], light: ['#e0e6ed','#d0dbe5','#b3c5d7','#97aabd','#c5d3e8','#e9f1f7'] },
-    molten: { dark: ['#1a0f0f','#2d0b0b','#4e0707','#8d5b12','#b87333','#d35400'], light: ['#ffebe6','#ffd6cc','#ffc2b3','#ffebcc','#ffe0b3','#fff0e6'] },
-    monocle: { dark: ['#08080a','#141415','#1b1b1c','#2c2c2e','#3d3d40','#4d3b2b'], light: ['#f6f6f7','#ededf0','#e3e3e8','#dcdcd1','#e8e8df','#f0f0e6'] }
-  };
+  // Dark-mode palette — deep teals, blues, and greens
+  const darkColors = [
+    '#0d2a1a',  // near-black green
+    '#0a1e3d',  // deep navy
+    '#123d2b',  // forest teal
+    '#091b33',  // midnight blue
+    '#18503a',  // deep emerald
+    '#0e2f48',  // dark cyan-blue
+  ];
 
-  let activePreset = 'forest';
-  let darkColors = colorPresets.forest.dark;
-  let lightColors = colorPresets.forest.light;
+  // Light-mode palette — sage, sky, aqua
+  const lightColors = [
+    '#c8edd8',  // sage mint
+    '#bdd8f0',  // sky blue
+    '#b5e8df',  // aqua
+    '#c2ecd4',  // seafoam
+    '#bfdbf7',  // periwinkle
+    '#cdf2e3',  // light mint
+  ];
+
+  let currentColors = darkColors.map(getShaderColorFromString);
   let activeShader = 'meshGradient';
   let shaderMount = null;
   let isLightMode = false;
   let isFrozen = false;
 
-  const pipelines = {
-    meshGradient: { name:'Mesh Gradient', shader:meshGradientFragmentShader, uniforms:(c)=>({u_colors:c,u_colorsCount:c.length,u_distortion:0.55,u_swirl:0.18,u_grainMixer:0.04,u_grainOverlay:0.05}), controls:[{id:'u_distortion',label:'Distortion',type:'range',min:0,max:1,step:0.05,def:0.55},{id:'u_swirl',label:'Swirl',type:'range',min:0,max:1,step:0.05,def:0.18},{id:'u_grainMixer',label:'Grain Mixer',type:'range',min:0,max:0.2,step:0.01,def:0.04},{id:'u_grainOverlay',label:'Grain Overlay',type:'range',min:0,max:0.2,step:0.01,def:0.05}] },
-    liquidMetal: { name:'Liquid Metal', shader:liquidMetalFragmentShader, uniforms:(c)=>({u_colorBack:c[0],u_colorTint:c[1],u_repetition:4.0,u_shiftRed:0.02,u_shiftBlue:-0.02,u_contour:0.5,u_softness:0.2,u_distortion:0.4,u_angle:45.0,u_shape:4,u_isImage:false}), controls:[{id:'u_repetition',label:'Stripe Repetition',type:'range',min:1,max:10,step:0.5,def:4.0},{id:'u_distortion',label:'Distortion',type:'range',min:0,max:1,step:0.05,def:0.4},{id:'u_contour',label:'Contour',type:'range',min:0,max:1,step:0.05,def:0.5},{id:'u_softness',label:'Softness',type:'range',min:0,max:1,step:0.05,def:0.2},{id:'u_shiftRed',label:'Red Shift',type:'range',min:-0.1,max:0.1,step:0.01,def:0.02},{id:'u_shiftBlue',label:'Blue Shift',type:'range',min:-0.1,max:0.1,step:0.01,def:-0.02},{id:'u_angle',label:'Angle',type:'range',min:0,max:360,step:5,def:45.0},{id:'u_shape',label:'Procedural Shape',type:'select',options:[{label:'None',val:0},{label:'Circle',val:1},{label:'Daisy',val:2},{label:'Diamond',val:3},{label:'Metaballs',val:4}],def:4}] },
-    gemSmoke: { name:'Gem Smoke', shader:gemSmokeFragmentShader, uniforms:(c)=>({u_colorBack:c[0],u_colors:c,u_colorsCount:c.length,u_thickness:0.2,u_radius:0.35,u_innerShape:0.3,u_noiseScale:0.5,u_noiseIterations:4,u_shape:4}), controls:[{id:'u_thickness',label:'Thickness',type:'range',min:0.02,max:0.6,step:0.02,def:0.2},{id:'u_radius',label:'Radius',type:'range',min:0.05,max:0.8,step:0.05,def:0.35},{id:'u_innerShape',label:'Inner Shape',type:'range',min:0,max:1,step:0.05,def:0.3},{id:'u_noiseScale',label:'Noise Scale',type:'range',min:0.05,max:2.0,step:0.05,def:0.5},{id:'u_noiseIterations',label:'Noise Iterations',type:'range',min:1,max:8,step:1,def:4},{id:'u_shape',label:'Base Shape',type:'select',options:[{label:'None',val:0},{label:'Circle',val:1},{label:'Daisy',val:2},{label:'Diamond',val:3},{label:'Metaballs',val:4}],def:4}] },
-    heatmap: { name:'Heatmap', shader:heatmapFragmentShader, uniforms:(c)=>({u_image:emptyPixel,u_contour:0.4,u_angle:90.0,u_noise:0.5,u_innerGlow:0.2,u_outerGlow:0.3,u_colorBack:c[0],u_colors:c,u_colorsCount:c.length}), controls:[{id:'u_contour',label:'Contour',type:'range',min:0,max:1,step:0.05,def:0.4},{id:'u_angle',label:'Angle',type:'range',min:0,max:360,step:5,def:90.0},{id:'u_noise',label:'Noise',type:'range',min:0,max:1,step:0.05,def:0.5},{id:'u_innerGlow',label:'Inner Glow',type:'range',min:0,max:1,step:0.05,def:0.2},{id:'u_outerGlow',label:'Outer Glow',type:'range',min:0,max:1,step:0.05,def:0.3}] },
-    dithering: { name:'Dithering', shader:ditheringFragmentShader, uniforms:(c)=>({u_colorBack:c[0],u_colorFront:c[1]||c[0],u_pxSize:4.0,u_type:3,u_shape:2}), controls:[{id:'u_pxSize',label:'Pixel Size',type:'range',min:1,max:20,step:0.5,def:4.0},{id:'u_type',label:'Dither Type',type:'select',options:[{label:'Random',val:1},{label:'2x2 Bayer',val:2},{label:'4x4 Bayer',val:3},{label:'8x8 Bayer',val:4}],def:3},{id:'u_shape',label:'Underlying Shape',type:'select',options:[{label:'Simplex Noise',val:1},{label:'Warped Grid',val:2},{label:'Dots',val:3},{label:'Waves',val:4},{label:'Ripple',val:5},{label:'Swirl',val:6},{label:'Sphere Glow',val:7}],def:2}] },
-    grainGradient: { name:'Grain Gradient', shader:grainGradientFragmentShader, uniforms:(c)=>({u_colors:c,u_colorsCount:c.length,u_shape:6,u_grainMixer:0.1,u_grainOverlay:0.15,u_grainSize:1.5,u_originalColors:true,u_inverted:false}), controls:[{id:'u_grainSize',label:'Grain Size',type:'range',min:0.2,max:5.0,step:0.1,def:1.5},{id:'u_grainMixer',label:'Grain Mixer',type:'range',min:0,max:0.5,step:0.01,def:0.1},{id:'u_grainOverlay',label:'Grain Overlay',type:'range',min:0,max:0.5,step:0.01,def:0.15},{id:'u_shape',label:'Pattern',type:'select',options:[{label:'Wave',val:1},{label:'Dots',val:2},{label:'Truchet',val:3},{label:'Corners',val:4},{label:'Ripple',val:5},{label:'Blob',val:6},{label:'Sphere',val:7}],def:6},{id:'u_originalColors',label:'Use Original Colors',type:'checkbox',def:true},{id:'u_inverted',label:'Invert',type:'checkbox',def:false}] },
-    dotOrbit: { name:'Dot Orbit', shader:dotOrbitFragmentShader, uniforms:(c)=>({u_colors:c,u_colorsCount:c.length,u_stepsPerColor:5.0,u_size:0.02,u_sizeRange:0.01,u_spreading:0.4}), controls:[{id:'u_stepsPerColor',label:'Orbit Density',type:'range',min:1,max:10,step:1,def:5.0},{id:'u_size',label:'Node Size',type:'range',min:0.005,max:0.05,step:0.001,def:0.02},{id:'u_sizeRange',label:'Size Range',type:'range',min:0,max:0.03,step:0.002,def:0.01},{id:'u_spreading',label:'Spreading',type:'range',min:0.1,max:1.0,step:0.05,def:0.4}] },
-    dotGrid: { name:'Dot Grid', shader:dotGridFragmentShader, uniforms:(c)=>({u_colorFront:c[1]||c[0],u_colorBack:c[0],u_size:0.02,u_grid:0,u_shape:0,u_radius:0.25,u_contrast:1.5,u_originalColors:true,u_inverted:false}), controls:[{id:'u_size',label:'Cell Size',type:'range',min:0.005,max:0.1,step:0.002,def:0.02},{id:'u_radius',label:'Dot Radius',type:'range',min:0.05,max:0.5,step:0.01,def:0.25},{id:'u_contrast',label:'Contrast',type:'range',min:0.5,max:4.0,step:0.1,def:1.5},{id:'u_grid',label:'Grid Style',type:'select',options:[{label:'Square',val:0},{label:'Hexagonal',val:1}],def:0},{id:'u_shape',label:'Cell Shape',type:'select',options:[{label:'Circle',val:0},{label:'Diamond',val:1},{label:'Square',val:2},{label:'Triangle',val:3}],def:0},{id:'u_originalColors',label:'Original Colors',type:'checkbox',def:true},{id:'u_inverted',label:'Invert',type:'checkbox',def:false}] },
-    warp: { name:'Warp', shader:warpFragmentShader, uniforms:(c)=>({u_colors:c,u_colorsCount:c.length,u_proportion:0.5,u_softness:0.4,u_shape:0,u_shapeScale:2.0,u_distortion:0.6,u_swirl:0.5,u_swirlIterations:4}), controls:[{id:'u_proportion',label:'Proportion',type:'range',min:0.1,max:0.9,step:0.05,def:0.5},{id:'u_softness',label:'Softness',type:'range',min:0.05,max:0.9,step:0.05,def:0.4},{id:'u_shapeScale',label:'Scale',type:'range',min:0.5,max:6.0,step:0.1,def:2.0},{id:'u_distortion',label:'Distortion',type:'range',min:0,max:2,step:0.05,def:0.6},{id:'u_swirl',label:'Swirl',type:'range',min:0,max:2,step:0.05,def:0.5},{id:'u_swirlIterations',label:'Swirl Iterations',type:'range',min:1,max:8,step:1,def:4},{id:'u_shape',label:'Geometry',type:'select',options:[{label:'Checks',val:0},{label:'Stripes',val:1},{label:'Soft Edge',val:2}],def:0}] },
-    waves: { name:'Waves', shader:wavesFragmentShader, uniforms:(c)=>({u_colorFront:c[1]||c[0],u_colorBack:c[0],u_shape:0.5,u_frequency:4.0,u_amplitude:0.1,u_spacing:0.3,u_proportion:0.5,u_softness:0.2}), controls:[{id:'u_frequency',label:'Frequency',type:'range',min:0.5,max:15,step:0.5,def:4.0},{id:'u_amplitude',label:'Amplitude',type:'range',min:0.01,max:0.4,step:0.01,def:0.1},{id:'u_shape',label:'Shape',type:'range',min:0,max:1,step:0.05,def:0.5},{id:'u_spacing',label:'Spacing',type:'range',min:0.05,max:0.8,step:0.01,def:0.3},{id:'u_proportion',label:'Proportion',type:'range',min:0.1,max:0.9,step:0.05,def:0.5},{id:'u_softness',label:'Edge Blur',type:'range',min:0.02,max:0.5,step:0.01,def:0.2}] },
-    spiral: { name:'Spiral', shader:spiralFragmentShader, uniforms:(c)=>({u_colorBack:c[0],u_colorFront:c[1]||c[0],u_density:6.0,u_distortion:0.8,u_strokeWidth:0.15,u_strokeTaper:0.3,u_strokeCap:0.5,u_noise:0.4,u_noiseFrequency:3.0,u_softness:0.2}), controls:[{id:'u_density',label:'Density',type:'range',min:1,max:15,step:0.5,def:6.0},{id:'u_distortion',label:'Distortion',type:'range',min:0,max:4,step:0.1,def:0.8},{id:'u_strokeWidth',label:'Stroke Width',type:'range',min:0.02,max:0.4,step:0.01,def:0.15},{id:'u_strokeTaper',label:'Taper',type:'range',min:0,max:1,step:0.05,def:0.3},{id:'u_noise',label:'Noise',type:'range',min:0,max:1,step:0.05,def:0.4},{id:'u_noiseFrequency',label:'Noise Frequency',type:'range',min:0.5,max:8,step:0.2,def:3.0},{id:'u_softness',label:'Edge Blur',type:'range',min:0.02,max:0.5,step:0.01,def:0.2}] },
-    swirl: { name:'Swirl', shader:swirlFragmentShader, uniforms:(c)=>({u_colorBack:c[0],u_colors:c,u_colorsCount:c.length,u_bandCount:5.0,u_twist:1.5,u_center:0.4,u_proportion:0.5,u_softness:0.3,u_noiseFrequency:2.0,u_noise:0.3}), controls:[{id:'u_bandCount',label:'Bands',type:'range',min:1,max:15,step:1,def:5.0},{id:'u_twist',label:'Twist',type:'range',min:-4,max:4,step:0.2,def:1.5},{id:'u_center',label:'Center',type:'range',min:0,max:0.8,step:0.05,def:0.4},{id:'u_proportion',label:'Proportion',type:'range',min:0.1,max:0.9,step:0.05,def:0.5},{id:'u_noise',label:'Noise',type:'range',min:0,max:1,step:0.05,def:0.3},{id:'u_noiseFrequency',label:'Noise Frequency',type:'range',min:0.5,max:6,step:0.2,def:2.0},{id:'u_softness',label:'Edge Blur',type:'range',min:0.02,max:0.5,step:0.01,def:0.3}] },
-    voronoi: { name:'Voronoi Cells', shader:voronoiFragmentShader, uniforms:(c)=>({u_colors:c,u_colorsCount:c.length,u_stepsPerColor:2.0,u_colorGap:c[0],u_colorGlow:c[1]||c[0],u_distortion:0.4,u_gap:0.05,u_glow:0.15}), controls:[{id:'u_stepsPerColor',label:'Cell Frequency',type:'range',min:1,max:6,step:0.5,def:2.0},{id:'u_distortion',label:'Distortion',type:'range',min:0,max:1.5,step:0.05,def:0.4},{id:'u_gap',label:'Gap Width',type:'range',min:0,max:0.2,step:0.01,def:0.05},{id:'u_glow',label:'Border Glow',type:'range',min:0,max:0.5,step:0.01,def:0.15}] },
-    smokeRing: { name:'Smoke Ring', shader:smokeRingFragmentShader, uniforms:(c)=>({u_colorBack:c[0],u_colors:c,u_colorsCount:c.length,u_thickness:0.15,u_radius:0.25,u_innerShape:0.5,u_noiseScale:0.6,u_noiseIterations:4.0}), controls:[{id:'u_thickness',label:'Thickness',type:'range',min:0.02,max:0.4,step:0.02,def:0.15},{id:'u_radius',label:'Radius',type:'range',min:0.05,max:0.6,step:0.02,def:0.25},{id:'u_innerShape',label:'Inner Morph',type:'range',min:0,max:1,step:0.05,def:0.5},{id:'u_noiseScale',label:'Turbulence',type:'range',min:0.05,max:1.5,step:0.05,def:0.6},{id:'u_noiseIterations',label:'Fractal Steps',type:'range',min:1,max:8,step:1,def:4.0}] },
-    neuroNoise: { name:'Neuro Noise', shader:neuroNoiseFragmentShader, uniforms:(c)=>({u_colorFront:c[0],u_colorMid:c[2]||c[0],u_colorBack:c[1]||c[0],u_brightness:0.4,u_contrast:1.2}), controls:[{id:'u_brightness',label:'Brightness',type:'range',min:0,max:1,step:0.05,def:0.4},{id:'u_contrast',label:'Contrast',type:'range',min:0.1,max:3,step:0.1,def:1.2}] }
+  const shaderConfigs = {
+    meshGradient: {
+      shader: meshGradientFragmentShader,
+      uniforms: (colors) => ({
+        u_colors:      colors,
+        u_colorsCount: colors.length,
+        u_distortion:  0.55,
+        u_swirl:       0.18,
+        u_speed:       0.35,
+        u_grain:       0.04
+      })
+    },
+    smokeRing: {
+      shader: smokeRingFragmentShader,
+      uniforms: (colors) => ({
+        u_colors:      colors,
+        u_colorsCount: colors.length,
+        u_thickness:   0.15,
+        u_radius:      0.25,
+        u_innerShape:  0.5,
+        u_noiseScale:  0.6,
+        u_noiseIterations: 4.0
+      })
+    },
+    neuroNoise: {
+      shader: neuroNoiseFragmentShader,
+      uniforms: (colors) => ({
+        u_colorFront:  colors[0],
+        u_colorMid:    colors[2],
+        u_colorBack:   colors[1],
+        u_brightness:  0.4,
+        u_contrast:    1.2
+      })
+    },
+    dotOrbit: {
+      shader: dotOrbitFragmentShader,
+      uniforms: (colors) => ({
+        u_colors:      colors,
+        u_colorsCount: colors.length,
+        u_stepsPerColor: 5.0,
+        u_size:        0.02,
+        u_sizeRange:   0.01,
+        u_spreading:   0.4
+      })
+    }
   };
-
-  let realMouseX = 0, realMouseY = 0, lastMouseX = 0, lastMouseY = 0;
-  let mouseX = 0, mouseY = 0, mouseSpeed = 0;
-  let lastTime = performance.now();
-  let isMouseInWindow = false;
-
-  window.addEventListener('mousemove', (e) => {
-    realMouseX = (e.clientX / window.innerWidth) * 2 - 1;
-    realMouseY = (e.clientY / window.innerHeight) * 2 - 1;
-    isMouseInWindow = true;
-    const now = performance.now();
-    const dt = Math.max(1, now - lastTime);
-    const dx = e.clientX - lastMouseX;
-    const dy = e.clientY - lastMouseY;
-    const dist = Math.hypot(dx, dy);
-    mouseSpeed = mouseSpeed * 0.85 + (Math.min(2.5, dist / dt)) * 0.15;
-    lastMouseX = e.clientX;
-    lastMouseY = e.clientY;
-    lastTime = now;
-  });
-  window.addEventListener('mouseleave', () => { isMouseInWindow = false; });
 
   function initShader(type) {
     if (shaderMount) {
-      if (typeof shaderMount.dispose === 'function') shaderMount.dispose();
-      else if (typeof shaderMount.destroy === 'function') shaderMount.destroy();
-      else { shaderMount.setSpeed(0); if (shaderMount.canvasElement && shaderMount.canvasElement.parentNode) shaderMount.canvasElement.parentNode.removeChild(shaderMount.canvasElement); }
-    }
-    const config = pipelines[type];
-    const colors = (isLightMode ? lightColors : darkColors).map(getShaderColorFromString);
-    const initialUniforms = config.uniforms(colors);
-    config.controls.forEach(ctrl => { initialUniforms[ctrl.id] = ctrl.def; });
-    const speedRange = document.getElementById('shader-speed-range');
-    const baseSpeed = speedRange ? parseFloat(speedRange.value) : 0.35;
-    shaderMount = new ShaderMount(container, config.shader, initialUniforms, {}, isFrozen ? 0 : baseSpeed);
-    shaderMount.start();
-    buildDynamicControls(type);
-  }
-
-  function buildDynamicControls(type) {
-    const config = pipelines[type];
-    const dynContainer = document.getElementById('hud-dynamic-controls');
-    if (!dynContainer || !config) return;
-    dynContainer.innerHTML = '';
-    config.controls.forEach(ctrl => {
-      const section = document.createElement('div');
-      section.className = 'hud-section';
-      if (ctrl.type === 'range') {
-        section.innerHTML = '<div class="hud-slider-group"><span class="hud-section-label">' + ctrl.label + '</span><span class="hud-slider-val" id="hud-val-' + ctrl.id + '">' + ctrl.def.toFixed(ctrl.step % 1 === 0 ? 0 : 2) + '</span></div><div class="hud-slider-group"><input type="range" class="hud-dynamic-input" data-uniform="' + ctrl.id + '" min="' + ctrl.min + '" max="' + ctrl.max + '" step="' + ctrl.step + '" value="' + ctrl.def + '"></div>';
-      } else if (ctrl.type === 'select') {
-        let optionsHtml = '';
-        ctrl.options.forEach(opt => { optionsHtml += '<option value="' + opt.val + '">' + opt.label + '</option>'; });
-        section.innerHTML = '<label class="hud-section-label" style="margin-bottom: var(--space-xs); display: block;">' + ctrl.label + '</label><select class="hud-select hud-dynamic-input" data-uniform="' + ctrl.id + '">' + optionsHtml + '</select>';
-      } else if (ctrl.type === 'checkbox') {
-        section.innerHTML = '<label class="hud-checkbox-group"><input type="checkbox" class="hud-dynamic-input" data-uniform="' + ctrl.id + '"' + (ctrl.def ? ' checked' : '') + '><span>' + ctrl.label + '</span></label>';
+      // Safely dispose old shader context to prevent leaks
+      if (typeof shaderMount.dispose === 'function') {
+        shaderMount.dispose();
+      } else if (typeof shaderMount.destroy === 'function') {
+        shaderMount.destroy();
+      } else {
+        shaderMount.setSpeed(0);
+        if (shaderMount.canvasElement && shaderMount.canvasElement.parentNode) {
+          shaderMount.canvasElement.parentNode.removeChild(shaderMount.canvasElement);
+        }
       }
-      dynContainer.appendChild(section);
-      if (ctrl.type === 'select') { const sel = section.querySelector('select'); if (sel) sel.value = ctrl.def; }
-    });
-    const inputs = dynContainer.querySelectorAll('.hud-dynamic-input');
-    inputs.forEach(input => {
-      const uniformName = input.dataset.uniform;
-      const updateUniform = () => {
-        if (!shaderMount) return;
-        let val;
-        if (input.type === 'checkbox') val = input.checked;
-        else if (input.tagName === 'SELECT') val = parseFloat(input.value);
-        else { val = parseFloat(input.value); const valEl = document.getElementById('hud-val-' + uniformName); if (valEl) valEl.textContent = val.toFixed(parseFloat(input.step) % 1 === 0 ? 0 : 2); }
-        const ctrlObj = config.controls.find(c => c.id === uniformName);
-        if (ctrlObj) ctrlObj.def = val;
-        const uniformsObj = {}; uniformsObj[uniformName] = val;
-        shaderMount.setUniforms(uniformsObj);
-      };
-      input.addEventListener('input', updateUniform);
-      input.addEventListener('change', updateUniform);
-    });
+    }
+
+    const config = shaderConfigs[type];
+    const colors = isLightMode ? lightColors : darkColors;
+    const mappedColors = colors.map(getShaderColorFromString);
+
+    shaderMount = new ShaderMount(container, config.shader, config.uniforms(mappedColors), {}, isFrozen ? 0 : 0.35);
+    shaderMount.start();
   }
 
+  // Initial load
   initShader(activeShader);
 
+  // HUD and UI hooks
   const pipelineSelect = document.getElementById('shader-pipeline-select');
-  const paletteSelect = document.getElementById('shader-palette-select');
   const speedRange = document.getElementById('shader-speed-range');
   const speedVal = document.getElementById('hud-speed-val');
+  const distortionRange = document.getElementById('shader-distortion-range');
+  const distortionVal = document.getElementById('hud-distortion-val');
   const freezeCb = document.getElementById('hud-freeze-cb');
   const statusLabel = document.getElementById('hud-val-status');
 
-  pipelineSelect.addEventListener('change', (e) => { activeShader = e.target.value; initShader(activeShader); });
-  paletteSelect.addEventListener('change', (e) => { activePreset = e.target.value; darkColors = colorPresets[activePreset].dark; lightColors = colorPresets[activePreset].light; initShader(activeShader); });
-  speedRange.addEventListener('input', (e) => { const v = parseFloat(e.target.value); speedVal.textContent = v.toFixed(2); if (shaderMount && !isFrozen) shaderMount.setSpeed(v); });
-  freezeCb.addEventListener('change', (e) => { isFrozen = e.target.checked; statusLabel.textContent = isFrozen ? 'ECO FREEZE' : 'RENDERING'; statusLabel.style.color = isFrozen ? 'var(--warn)' : 'var(--accent)'; if (shaderMount) shaderMount.setSpeed(isFrozen ? 0 : parseFloat(speedRange.value)); });
+  pipelineSelect.addEventListener('change', (e) => {
+    activeShader = e.target.value;
+    initShader(activeShader);
+  });
 
-  function updateShaderUniforms() {
-    if (isFrozen || !shaderMount) { requestAnimationFrame(updateShaderUniforms); return; }
-    if (!isMouseInWindow) { realMouseX *= 0.95; realMouseY *= 0.95; mouseSpeed *= 0.92; } else { mouseSpeed *= 0.96; }
-    mouseX += (realMouseX - mouseX) * 0.08;
-    mouseY += (realMouseY - mouseY) * 0.08;
-    const baseSpeed = parseFloat(speedRange.value);
-    const config = pipelines[activeShader];
-    const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight || 1);
-    if (activeShader === 'meshGradient') {
-      const uDist = config.controls.find(c => c.id === 'u_distortion');
-      const uSwirl = config.controls.find(c => c.id === 'u_swirl');
-      const baseD = uDist ? uDist.def : 0.55, baseS = uSwirl ? uSwirl.def : 0.18;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.45 + scrollPercent * 0.15);
-      shaderMount.setUniforms({ u_distortion: Math.max(0, Math.min(1, baseD + mouseX * 0.12 + mouseSpeed * 0.25)), u_swirl: Math.max(0, Math.min(1, baseS + mouseY * 0.1 + mouseSpeed * 0.2 + scrollPercent * 0.2)) });
-    } else if (activeShader === 'liquidMetal') {
-      const uRep = config.controls.find(c => c.id === 'u_repetition');
-      const uDist = config.controls.find(c => c.id === 'u_distortion');
-      const baseR = uRep ? uRep.def : 4.0, baseD = uDist ? uDist.def : 0.4;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.5);
-      shaderMount.setUniforms({ u_distortion: Math.max(0, Math.min(2, baseD + mouseX * 0.15 + mouseSpeed * 0.3)), u_repetition: Math.max(1, Math.min(10, baseR + mouseY * 0.5 + scrollPercent * 1.5)) });
-    } else if (activeShader === 'gemSmoke') {
-      const uT = config.controls.find(c => c.id === 'u_thickness');
-      const uR = config.controls.find(c => c.id === 'u_radius');
-      const baseT = uT ? uT.def : 0.2, baseR = uR ? uR.def : 0.35;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.45);
-      shaderMount.setUniforms({ u_thickness: Math.max(0.01, Math.min(0.8, baseT + mouseX * 0.05 + scrollPercent * 0.05)), u_radius: Math.max(0.05, Math.min(0.8, baseR + mouseY * 0.1 + mouseSpeed * 0.1)) });
-    } else if (activeShader === 'heatmap') {
-      const uC = config.controls.find(c => c.id === 'u_contour');
-      const baseC = uC ? uC.def : 0.4;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.5);
-      shaderMount.setUniforms({ u_contour: Math.max(0, Math.min(1, baseC + mouseX * 0.1 + mouseSpeed * 0.15)), u_noise: Math.max(0, Math.min(1, 0.5 + mouseY * 0.15 + scrollPercent * 0.1)) });
-    } else if (activeShader === 'dithering') {
-      const uP = config.controls.find(c => c.id === 'u_pxSize');
-      const baseP = uP ? uP.def : 4.0;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.3);
-      shaderMount.setUniforms({ u_pxSize: Math.max(0.5, Math.min(20, baseP + mouseX * 2 + mouseSpeed * 3)) });
-    } else if (activeShader === 'grainGradient') {
-      const uS = config.controls.find(c => c.id === 'u_grainSize');
-      const baseS = uS ? uS.def : 1.5;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.4);
-      shaderMount.setUniforms({ u_grainSize: Math.max(0.1, Math.min(10, baseS + mouseX * 0.5 + mouseSpeed * 0.8 + scrollPercent * 0.5)) });
-    } else if (activeShader === 'dotGrid') {
-      const uS = config.controls.find(c => c.id === 'u_size');
-      const uR = config.controls.find(c => c.id === 'u_radius');
-      const baseS = uS ? uS.def : 0.02, baseR = uR ? uR.def : 0.25;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.3);
-      shaderMount.setUniforms({ u_size: Math.max(0.005, Math.min(0.1, baseS + mouseX * 0.005)), u_radius: Math.max(0.01, Math.min(0.5, baseR + mouseY * 0.05 + mouseSpeed * 0.08 + scrollPercent * 0.05)) });
-    } else if (activeShader === 'warp') {
-      const uD = config.controls.find(c => c.id === 'u_distortion');
-      const uS = config.controls.find(c => c.id === 'u_swirl');
-      const baseD = uD ? uD.def : 0.6, baseS = uS ? uS.def : 0.5;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.4);
-      shaderMount.setUniforms({ u_distortion: Math.max(0, Math.min(2, baseD + mouseX * 0.2 + mouseSpeed * 0.3)), u_swirl: Math.max(0, Math.min(2, baseS + mouseY * 0.15 + mouseSpeed * 0.25 + scrollPercent * 0.2)) });
-    } else if (activeShader === 'waves') {
-      const uF = config.controls.find(c => c.id === 'u_frequency');
-      const uA = config.controls.find(c => c.id === 'u_amplitude');
-      const baseF = uF ? uF.def : 4.0, baseA = uA ? uA.def : 0.1;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.5);
-      shaderMount.setUniforms({ u_frequency: Math.max(0.1, Math.min(20, baseF + mouseX * 1.5)), u_amplitude: Math.max(0.01, Math.min(0.5, baseA + mouseY * 0.05 + mouseSpeed * 0.08 + scrollPercent * 0.04)) });
-    } else if (activeShader === 'spiral') {
-      const uD = config.controls.find(c => c.id === 'u_distortion');
-      const baseD = uD ? uD.def : 0.8;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.4);
-      shaderMount.setUniforms({ u_distortion: Math.max(0, Math.min(5, baseD + mouseX * 0.5 + mouseSpeed * 0.8 + scrollPercent * 0.4)) });
-    } else if (activeShader === 'swirl') {
-      const uT = config.controls.find(c => c.id === 'u_twist');
-      const baseT = uT ? uT.def : 1.5;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.45);
-      shaderMount.setUniforms({ u_twist: Math.max(-5, Math.min(5, baseT + mouseX * 0.5 + mouseSpeed * 0.8 + scrollPercent * 0.5)) });
-    } else if (activeShader === 'voronoi') {
-      const uD = config.controls.find(c => c.id === 'u_distortion');
-      const baseD = uD ? uD.def : 0.4;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.4);
-      shaderMount.setUniforms({ u_distortion: Math.max(0, Math.min(1.5, baseD + mouseX * 0.15 + mouseSpeed * 0.25)) });
-    } else if (activeShader === 'smokeRing') {
-      const uS = config.controls.find(c => c.id === 'u_noiseScale');
-      const uR = config.controls.find(c => c.id === 'u_radius');
-      const baseS = uS ? uS.def : 0.6, baseR = uR ? uR.def : 0.25;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.5);
-      shaderMount.setUniforms({ u_noiseScale: Math.max(0.05, Math.min(1.5, baseS + mouseX * 0.15 + mouseSpeed * 0.3)), u_radius: Math.max(0.05, Math.min(0.6, baseR + mouseY * 0.08 + scrollPercent * 0.05)) });
-    } else if (activeShader === 'neuroNoise') {
-      const uC = config.controls.find(c => c.id === 'u_contrast');
-      const baseC = uC ? uC.def : 1.2;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.4);
-      shaderMount.setUniforms({ u_contrast: Math.max(0.1, Math.min(3, baseC + mouseX * 0.4 + mouseSpeed * 0.6)), u_brightness: Math.max(0, Math.min(1, 0.4 + mouseY * 0.12 + scrollPercent * 0.1)) });
-    } else if (activeShader === 'dotOrbit') {
-      const uSp = config.controls.find(c => c.id === 'u_spreading');
-      const baseSp = uSp ? uSp.def : 0.4;
-      shaderMount.setSpeed(baseSpeed + mouseSpeed * 0.45);
-      shaderMount.setUniforms({ u_spreading: Math.max(0.1, Math.min(1, baseSp + mouseX * 0.15 + mouseSpeed * 0.35 + scrollPercent * 0.15)), u_size: Math.max(0.005, Math.min(0.05, 0.02 + mouseSpeed * 0.015)) });
+  speedRange.addEventListener('input', (e) => {
+    const val = parseFloat(e.target.value);
+    speedVal.textContent = val.toFixed(2);
+    if (shaderMount && !isFrozen) {
+      shaderMount.setSpeed(val);
     }
-    requestAnimationFrame(updateShaderUniforms);
-  }
-  requestAnimationFrame(updateShaderUniforms);
+  });
 
-  window.__shaderSetLight = function (lightModeActive) { isLightMode = lightModeActive; initShader(activeShader); };
+  distortionRange.addEventListener('input', (e) => {
+    const val = parseFloat(e.target.value);
+    distortionVal.textContent = val.toFixed(2);
+    if (shaderMount) {
+      if (activeShader === 'meshGradient') {
+        shaderMount.setUniforms({ u_distortion: val });
+      } else if (activeShader === 'smokeRing') {
+        shaderMount.setUniforms({ u_noiseScale: val });
+      } else if (activeShader === 'neuroNoise') {
+        shaderMount.setUniforms({ u_contrast: val * 2.0 });
+      } else if (activeShader === 'dotOrbit') {
+        shaderMount.setUniforms({ u_spreading: val });
+      }
+    }
+  });
+
+  freezeCb.addEventListener('change', (e) => {
+    isFrozen = e.target.checked;
+    statusLabel.textContent = isFrozen ? 'ECO FREEZE' : 'RENDERING';
+    statusLabel.style.color = isFrozen ? 'var(--warn)' : 'var(--accent)';
+    if (shaderMount) {
+      shaderMount.setSpeed(isFrozen ? 0 : parseFloat(speedRange.value));
+    }
+  });
+
+  // Expose theme-switching hook so the toggle button can swap palettes
+  window.__shaderSetLight = function (lightModeActive) {
+    isLightMode = lightModeActive;
+    initShader(activeShader);
+  };
 })();
 </script>
 
-<!-- ═══ CARD SHADERS ═══ -->
+<!-- ─── PROJECT ELEMENT SHADERS — Subtly overlayed on cards ─── -->
 <script type="module">
-import { ShaderMount, liquidMetalFragmentShader, grainGradientFragmentShader, ditheringFragmentShader, dotGridFragmentShader, getShaderColorFromString } from 'https://cdn.jsdelivr.net/npm/@paper-design/shaders@latest/dist/index.js';
+import {
+  ShaderMount,
+  dotOrbitFragmentShader,
+  neuroNoiseFragmentShader,
+  meshGradientFragmentShader,
+  getShaderColorFromString
+} from 'https://cdn.jsdelivr.net/npm/@paper-design/shaders@latest/dist/index.js';
+
 (function(){
+  // Bind micro-shaders to the project card background canvases
   const cards = [
-    { containerId:'canvas-minicloud', cardId:'card-minicloud', shader:liquidMetalFragmentShader, uniforms:{ u_colorBack:getShaderColorFromString('#0d2a1a'),u_colorTint:getShaderColorFromString('#18503a'),u_repetition:4.0,u_shiftRed:0.01,u_shiftBlue:-0.01,u_contour:0.5,u_softness:0.3,u_distortion:0.3,u_angle:90.0,u_shape:4,u_isImage:false } },
-    { containerId:'canvas-fincal', cardId:'card-fincal', shader:grainGradientFragmentShader, uniforms:{ u_colors:['#0a1e3d','#0e2f48','#091b33'].map(getShaderColorFromString),u_colorsCount:3,u_shape:6,u_grainMixer:0.1,u_grainOverlay:0.15,u_grainSize:1.2,u_originalColors:true,u_inverted:false } },
-    { containerId:'canvas-connect4', cardId:'card-connect4', shader:ditheringFragmentShader, uniforms:{ u_colorBack:getShaderColorFromString('#0d2a1a'),u_colorFront:getShaderColorFromString('#0a1e3d'),u_shape:3,u_type:3,u_pxSize:6.0 } },
-    { containerId:'canvas-canteen', cardId:'card-canteen', shader:dotGridFragmentShader, uniforms:{ u_colorFront:getShaderColorFromString('#0e2f48'),u_colorBack:getShaderColorFromString('#0a1e3d'),u_size:0.03,u_grid:0,u_shape:2,u_radius:0.25,u_contrast:1.5,u_originalColors:true,u_inverted:false } }
+    { containerId: 'canvas-minicloud', cardId: 'card-minicloud', shader: dotOrbitFragmentShader, uniforms: { u_colors: ['#0d2a1a', '#123d2b', '#18503a'].map(getShaderColorFromString), u_colorsCount: 3, u_stepsPerColor: 3.0, u_size: 0.04, u_sizeRange: 0.02, u_spreading: 0.5 } },
+    { containerId: 'canvas-fincal', cardId: 'card-fincal', shader: neuroNoiseFragmentShader, uniforms: { u_colorFront: getShaderColorFromString('#0a1e3d'), u_colorMid: getShaderColorFromString('#0e2f48'), u_colorBack: getShaderColorFromString('#091b33'), u_brightness: 0.3, u_contrast: 1.5 } },
+    { containerId: 'canvas-connect4', cardId: 'card-connect4', shader: meshGradientFragmentShader, uniforms: { u_colors: ['#0d2a1a', '#0a1e3d', '#123d2b', '#0e2f48', '#18503a', '#091b33'].map(getShaderColorFromString), u_colorsCount: 6, u_distortion: 0.7, u_swirl: 0.4, u_speed: 0.1, u_grain: 0.05 } },
+    { containerId: 'canvas-canteen', cardId: 'card-canteen', shader: dotOrbitFragmentShader, uniforms: { u_colors: ['#0a1e3d', '#0e2f48', '#091b33'].map(getShaderColorFromString), u_colorsCount: 3, u_stepsPerColor: 2.0, u_size: 0.03, u_sizeRange: 0.01, u_spreading: 0.3 } }
   ];
+
   cards.forEach(cfg => {
     const parent = document.getElementById(cfg.containerId);
     const cardEl = document.getElementById(cfg.cardId);
     if (!parent || !cardEl) return;
+
+    // Start in low speed / static mode to conserve resources
     const mount = new ShaderMount(parent, cfg.shader, cfg.uniforms, {}, 0.05);
     mount.start();
-    cardEl.addEventListener('mousemove', (e) => {
-      mount.setSpeed(0.45);
-      const rect = cardEl.getBoundingClientRect();
-      const x = e.clientX - rect.left, y = e.clientY - rect.top;
-      const xPercent = (x / rect.width) * 100, yPercent = (y / rect.height) * 100;
-      const xc = (x / rect.width) - 0.5, yc = (y / rect.height) - 0.5;
-      cardEl.style.transform = 'perspective(800px) rotateY(' + (xc * 6) + 'deg) rotateX(' + (-yc * 6) + 'deg) translateY(-2px)';
-      cardEl.style.setProperty('--mouse-x', xPercent + '%');
-      cardEl.style.setProperty('--mouse-y', yPercent + '%');
-      if (cfg.cardId === 'card-minicloud') mount.setUniforms({ u_distortion: 0.3 + (x / rect.width) * 0.4 });
-      else if (cfg.cardId === 'card-canteen') mount.setUniforms({ u_radius: 0.2 + (x / rect.width) * 0.15 });
-      else if (cfg.cardId === 'card-fincal') mount.setUniforms({ u_grainSize: 1.0 + (x / rect.width) * 1.5 });
-      else if (cfg.cardId === 'card-connect4') mount.setUniforms({ u_pxSize: 4.0 + (x / rect.width) * 8.0 });
+
+    // Increase speed on hover
+    cardEl.addEventListener('mouseenter', () => {
+      mount.setSpeed(0.4);
     });
     cardEl.addEventListener('mouseleave', () => {
       mount.setSpeed(0.05);
-      cardEl.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0)';
-      cardEl.style.removeProperty('--mouse-x');
-      cardEl.style.removeProperty('--mouse-y');
-      if (cfg.cardId === 'card-minicloud') mount.setUniforms({ u_distortion: 0.3 });
-      else if (cfg.cardId === 'card-canteen') mount.setUniforms({ u_radius: 0.25 });
-      else if (cfg.cardId === 'card-fincal') mount.setUniforms({ u_grainSize: 1.2 });
-      else if (cfg.cardId === 'card-connect4') mount.setUniforms({ u_pxSize: 6.0 });
     });
   });
 })();
 </script>
 
-<!-- ═══ THEME TOGGLE ═══ -->
+<!-- ─── THEME TOGGLE ─── -->
 <script>
 (function(){
   const btn = document.getElementById('theme-toggle');
   const html = document.documentElement;
   let light = false;
+
   btn.addEventListener('click', function(){
     light = !light;
     html.setAttribute('data-theme', light ? 'light' : 'dark');
@@ -1840,19 +1846,29 @@ import { ShaderMount, liquidMetalFragmentShader, grainGradientFragmentShader, di
 })();
 </script>
 
-<!-- ═══ HUD TOGGLE ═══ -->
+<!-- ─── HUD PANEL TOGGLES ─── -->
 <script>
 (function(){
   const ctrlBtn = document.getElementById('shader-control-btn');
   const hud = document.getElementById('shader-hud');
   const closeBtn = document.getElementById('hud-close-btn');
-  ctrlBtn.addEventListener('click', function(){ hud.classList.toggle('open'); });
-  closeBtn.addEventListener('click', function(){ hud.classList.remove('open'); });
-  window.addEventListener('keydown', function(e){ if (e.key === 'Escape') hud.classList.remove('open'); });
+
+  ctrlBtn.addEventListener('click', function(){
+    hud.classList.toggle('open');
+  });
+
+  closeBtn.addEventListener('click', function(){
+    hud.classList.remove('open');
+  });
+
+  // Esc closes
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') hud.classList.remove('open');
+  });
 })();
 </script>
 
-<!-- ═══ MOBILE MENU ═══ -->
+<!-- ─── MOBILE MENU ─── -->
 <script>
 function closeMobile() {
   document.getElementById('mobile-menu').classList.remove('open');
@@ -1865,256 +1881,454 @@ document.getElementById('hamburger').addEventListener('click', function(){
 });
 </script>
 
-<!-- ═══ SCROLL REVEAL ═══ -->
+<!-- ─── REVEAL ON SCROLL ─── -->
 <script>
 (function(){
   const els = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
   }, { threshold: 0.12 });
   els.forEach(function(el){ obs.observe(el); });
 })();
 </script>
 
-<!-- ═══ CUSTOM CURSOR & MAGNETIC EFFECTS ═══ -->
+<!-- ─── INTERACTIVE SANDBOX PLUGINS ─── -->
 <script>
-(function(){
-  const cursorRing = document.getElementById('custom-cursor-ring');
-  const cursorDot = document.getElementById('custom-cursor-dot');
-  let ringX = 0, ringY = 0, dotX = 0, dotY = 0, targetX = 0, targetY = 0;
-  window.addEventListener('mousemove', (e) => { targetX = e.clientX; targetY = e.clientY; cursorRing.style.opacity = '1'; cursorDot.style.opacity = '1'; });
-  window.addEventListener('mouseout', () => { cursorRing.style.opacity = '0'; cursorDot.style.opacity = '0'; });
-  function animateCursor() {
-    ringX += (targetX - ringX) * 0.12; ringY += (targetY - ringY) * 0.12;
-    dotX += (targetX - dotX) * 0.35; dotY += (targetY - dotY) * 0.35;
-    cursorRing.style.left = ringX + 'px'; cursorRing.style.top = ringY + 'px';
-    cursorDot.style.left = dotX + 'px'; cursorDot.style.top = dotY + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  requestAnimationFrame(animateCursor);
-  const interactives = document.querySelectorAll('a, button, select, input, .dbms-query-btn, .c4-col-btn');
-  interactives.forEach(el => {
-    el.addEventListener('mouseenter', () => { cursorRing.style.width = '42px'; cursorRing.style.height = '42px'; cursorRing.style.borderColor = 'var(--accent2)'; cursorRing.style.backgroundColor = 'color-mix(in oklch, var(--accent2) 5%, transparent)'; });
-    el.addEventListener('mouseleave', () => { cursorRing.style.width = '28px'; cursorRing.style.height = '28px'; cursorRing.style.borderColor = 'var(--accent)'; cursorRing.style.backgroundColor = 'transparent'; });
-  });
-  const magneticEls = document.querySelectorAll('.nav-links a, #theme-toggle, #shader-control-btn, .btn');
-  magneticEls.forEach(el => {
-    el.style.transition = 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    el.addEventListener('mousemove', (e) => { const rect = el.getBoundingClientRect(); const x = e.clientX - (rect.left + rect.width / 2); const y = e.clientY - (rect.top + rect.height / 2); el.style.transform = 'translate(' + (x * 0.22) + 'px, ' + (y * 0.22) + 'px)'; });
-    el.addEventListener('mouseleave', () => { el.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; el.style.transform = 'translate(0px, 0px)'; });
-  });
-  const avatarImg = document.querySelector('.avatar-img');
-  const avatarRing = document.querySelector('.avatar-ring');
-  if (avatarImg && avatarRing) {
-    window.addEventListener('mousemove', (e) => {
-      const rect = avatarRing.getBoundingClientRect();
-      const dx = e.clientX - (rect.left + rect.width / 2); const dy = e.clientY - (rect.top + rect.height / 2); const dist = Math.hypot(dx, dy);
-      if (dist < 500) { const factor = (1 - dist / 500); const shiftX = (dx / 500) * 15; const shiftY = (dy / 500) * 15; avatarImg.style.transform = 'translate(' + shiftX + 'px, ' + shiftY + 'px) scale(1.05)'; const duration = 8 - (factor * 6.5); avatarRing.style.setProperty('--spin-duration', duration + 's'); }
-      else { avatarImg.style.transform = 'none'; avatarRing.style.setProperty('--spin-duration', '8s'); }
-    });
-    window.addEventListener('mouseleave', () => { avatarImg.style.transform = 'none'; avatarRing.style.setProperty('--spin-duration', '8s'); });
-  }
-})();
-</script>
-
-<!-- ═══ INTERACTIVE SANDBOX PLUGINS ═══ -->
-<script>
-// 1. MiniCloudDock Terminal
+// 1. MiniCloudDock Simulation
 (function(){
   const btn = document.getElementById('btn-minicloud');
   const consoleEl = document.getElementById('console-minicloud');
-  const terminalHistory = document.getElementById('terminal-history');
-  const terminalInput = document.getElementById('terminal-input');
   const indicator = document.getElementById('status-minicloud');
   const label = document.getElementById('label-minicloud');
-  let running = false, interval = null;
-  const logs = ["[INFO] Initializing system checks...","[OK] Memory allocation: PASS","[OK] Storage: STABLE (92.4 GB free)","$ docker compose up -d --build","[Docker] Building image 'minicloud-dashboard-api:latest'...","[Docker] Step 1/8 : FROM node:18-alpine","[Docker] Step 5/8 : EXPOSE 8080","[Docker] Successfully tagged minicloud-dashboard-api:latest","[Docker] Recreating container 'minicloud_db'...","[Docker] Recreating container 'minicloud_api'...","[Docker] Recreating container 'minicloud_nginx_ingress'...","[Nginx] Ingress bound to port 80/443","[Postgres] DB connection established, schema BCNF","[API] REST routes initialized.","[STATUS] Cluster ONLINE. CPU 1.2%, MEM 34.6MB"];
-  function printLine(text, type) {
-    const div = document.createElement('div'); div.className = 'terminal-line';
-    if (type === 'command') div.innerHTML = '<span class="terminal-prompt">root@minicloud:~#</span> <span style="color: var(--fg);">' + text + '</span>';
-    else if (type === 'error') { div.style.color = 'var(--danger)'; div.textContent = text; }
-    else if (type === 'accent') { div.style.color = 'var(--accent)'; div.textContent = text; }
-    else { div.style.color = 'var(--muted)'; div.textContent = text; }
-    terminalHistory.appendChild(div); consoleEl.scrollTop = consoleEl.scrollHeight;
-  }
-  function startDeploymentSim() {
-    if (running) { clearInterval(interval); printLine('Deployment canceled.', 'error'); indicator.classList.remove('active'); label.textContent = 'OFFLINE'; btn.textContent = 'Deploy Sandbox Node'; running = false; return; }
-    running = true; indicator.classList.add('active'); label.textContent = 'PROVISIONING'; btn.textContent = 'Terminate Node';
-    let idx = 0; interval = setInterval(() => { if (idx < logs.length) { printLine(logs[idx]); idx++; } else { clearInterval(interval); label.textContent = 'ONLINE'; } }, 350);
-  }
-  btn.addEventListener('click', startDeploymentSim);
-  terminalInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      const command = this.value.trim(); this.value = ''; if (!command) return;
-      printLine(command, 'command');
-      const c = command.toLowerCase();
-      if (c === 'help') { printLine('Commands:', 'accent'); printLine('  deploy, status, logs, docker ps, clear'); }
-      else if (c === 'clear') terminalHistory.innerHTML = '';
-      else if (c === 'deploy') startDeploymentSim();
-      else if (c === 'status') { if (!running && label.textContent !== 'ONLINE') printLine('Offline. Run deploy first.', 'error'); else { printLine('System Health: EXCELLENT', 'accent'); printLine('  Ingress: ONLINE  DB: ONLINE  API: ONLINE'); } }
-      else if (c === 'logs') { if (!running && label.textContent !== 'ONLINE') printLine('No active containers.', 'error'); else { printLine('[API Logs]'); printLine('  GET /healthcheck -> 200, POST /deploy -> 201'); } }
-      else if (c === 'docker ps') { if (!running && label.textContent !== 'ONLINE') printLine('No active containers.'); else { printLine('ID    IMAGE              PORTS', 'accent'); printLine('4b72  minicloud-ingress  80->80'); printLine('7a82  minicloud-api      8080->8080'); printLine('1fa5  postgres:15         5432'); } }
-      else printLine('bash: command not found: ' + command, 'error');
+  let running = false;
+  let interval = null;
+
+  const logs = [
+    "[INFO] Initializing system checks...",
+    "[OK] Memory allocation checks: PASS",
+    "[OK] Storage system status: STABLE (92.4 GB free)",
+    "$ docker compose up -d --build",
+    "[Docker] Building image 'minicloud-dashboard-api:latest'...",
+    "[Docker] Step 1/8 : FROM node:18-alpine",
+    "[Docker] ---> node package download cache: HIT",
+    "[Docker] Step 5/8 : EXPOSE 8080",
+    "[Docker] ---> Running container node checks: PASS",
+    "[Docker] Successfully tagged minicloud-dashboard-api:latest",
+    "[Docker] Recreating container 'minicloud_db'...",
+    "[Docker] Recreating container 'minicloud_api'...",
+    "[Docker] Recreating container 'minicloud_nginx_ingress'...",
+    "[Nginx] Ingress controller bound to port 80/443 successfully",
+    "[Postgres] DB connection established, schema normalized BCNF",
+    "[API] REST routes initialized. Ready to handle client queries.",
+    "[STATUS] Virtual cluster status: ONLINE. Load: CPU 1.2%, MEM 34.6MB."
+  ];
+
+  btn.addEventListener('click', function(){
+    if (running) {
+      clearInterval(interval);
+      consoleEl.textContent = "MiniCloudDock CLI v1.0.0\nNode host halted.";
+      indicator.classList.remove('active');
+      label.textContent = "OFFLINE";
+      btn.textContent = "Deploy Sandbox Node";
+      running = false;
+      return;
     }
+
+    running = true;
+    indicator.classList.add('active');
+    label.textContent = "PROVISIONING";
+    btn.textContent = "Terminate Sandbox Node";
+    consoleEl.textContent = "";
+    
+    let index = 0;
+    interval = setInterval(() => {
+      if (index < logs.length) {
+        consoleEl.textContent += (index > 0 ? "\n" : "") + logs[index];
+        consoleEl.scrollTop = consoleEl.scrollHeight;
+        index++;
+      } else {
+        clearInterval(interval);
+        label.textContent = "ONLINE";
+      }
+    }, 450);
   });
-  consoleEl.addEventListener('click', () => terminalInput.focus());
 })();
 
-// 2. FINCAL Chart — FIXED: Canvas color lookups via getComputedStyle
+// 2. FINCAL Chart Simulation
 (function(){
   const canvas = document.getElementById('fincal-live-canvas');
   const btn = document.getElementById('btn-fincal');
-  const chartBox = document.getElementById('fincal-chart-box');
-  const tooltip = document.getElementById('fincal-tooltip');
   const ctx = canvas.getContext('2d');
+  
   let points = Array.from({length: 40}, (_, i) => 40 + Math.sin(i * 0.3) * 15 + Math.random() * 5);
   let forecastPoints = [];
   let isForecasting = false;
-  function getAccent() { return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#68b291'; }
-  function getAccent2() { return getComputedStyle(document.documentElement).getPropertyValue('--accent2').trim() || '#62a0dc'; }
-  function resizeCanvas() { const rect = canvas.getBoundingClientRect(); canvas.width = rect.width * devicePixelRatio; canvas.height = rect.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); }
-  resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-  function draw(mouseXVal) {
-    if (mouseXVal === undefined) mouseXVal = -1;
+  
+  // High-DPI canvas fix
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+  }
+  
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  
+  function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const width = canvas.width / devicePixelRatio;
     const height = canvas.height / devicePixelRatio;
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1;
-    for (let x = 0; x < width; x += 20) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke(); }
-    for (let y = 0; y < height; y += 15) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke(); }
-    if (mouseXVal !== -1) { ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.setLineDash([2, 2]); ctx.beginPath(); ctx.moveTo(mouseXVal, 0); ctx.lineTo(mouseXVal, height); ctx.stroke(); ctx.setLineDash([]); }
+    
+    // Draw Grid
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < width; x += 20) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+    }
+    for (let y = 0; y < height; y += 15) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+    }
+    
+    // Draw Main Line
+    ctx.strokeStyle = 'var(--accent)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
     const step = width / 40;
-    // FIX: Use resolved color instead of CSS var
-    ctx.strokeStyle = getAccent();
-    ctx.lineWidth = 1.5; ctx.beginPath();
-    points.forEach((p, idx) => { const x = idx * step; const y = height - p; if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
+    points.forEach((p, idx) => {
+      const x = idx * step;
+      const y = height - p;
+      if (idx === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
     ctx.stroke();
-    // Fill area
-    const accentRgb = getAccent();
-    ctx.fillStyle = accentRgb + '0D';
-    ctx.lineTo((points.length - 1) * step, height); ctx.lineTo(0, height); ctx.closePath(); ctx.fill();
+    
+    // Fill Area under Main Line
+    ctx.fillStyle = 'rgba(104, 178, 145, 0.05)';
+    ctx.lineTo((points.length - 1) * step, height);
+    ctx.lineTo(0, height);
+    ctx.closePath();
+    ctx.fill();
+
+    // Draw Forecast Path
     if (isForecasting && forecastPoints.length > 0) {
-      // FIX: Use resolved color
-      ctx.strokeStyle = getAccent2();
-      ctx.lineWidth = 1.5; ctx.setLineDash([2, 2]); ctx.beginPath();
-      const startIdx = points.length - 1; ctx.moveTo(startIdx * step, height - points[startIdx]);
-      forecastPoints.forEach((p, idx) => { const x = (startIdx + idx + 1) * step; const y = height - p; ctx.lineTo(x, y); });
-      ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle = 'var(--accent2)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([2, 2]);
+      ctx.beginPath();
+      const startIdx = points.length - 1;
+      ctx.moveTo(startIdx * step, height - points[startIdx]);
+      forecastPoints.forEach((p, idx) => {
+        const x = (startIdx + idx + 1) * step;
+        const y = height - p;
+        ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.setLineDash([]);
+      
+      // Draw standard deviation cone
       ctx.fillStyle = 'rgba(98, 160, 220, 0.06)';
-      ctx.beginPath(); ctx.moveTo(startIdx * step, height - points[startIdx]);
-      forecastPoints.forEach((p, idx) => { const x = (startIdx + idx + 1) * step; const y = height - p - (idx * 2.5); ctx.lineTo(x, y); });
-      for (let idx = forecastPoints.length - 1; idx >= 0; idx--) { const x = (startIdx + idx + 1) * step; const y = height - forecastPoints[idx] + (idx * 2.5); ctx.lineTo(x, y); }
-      ctx.closePath(); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(startIdx * step, height - points[startIdx]);
+      forecastPoints.forEach((p, idx) => {
+        const x = (startIdx + idx + 1) * step;
+        const y = height - p - (idx * 2.5);
+        ctx.lineTo(x, y);
+      });
+      for (let idx = forecastPoints.length - 1; idx >= 0; idx--) {
+        const x = (startIdx + idx + 1) * step;
+        const y = height - forecastPoints[idx] + (idx * 2.5);
+        ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fill();
     }
   }
-  chartBox.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect(); const mx = e.clientX - rect.left; const step = rect.width / 40; const index = Math.max(0, Math.min(39, Math.round(mx / step)));
-    const price = points[index]; tooltip.style.opacity = '1'; tooltip.style.left = (mx + 10) + 'px'; tooltip.style.top = (e.clientY - rect.top - 25) + 'px';
-    tooltip.innerHTML = 'T-' + (40 - index) + 's &middot; <strong style="color: var(--accent);">$' + (price * 1.5 + 400).toFixed(2) + '</strong>';
-    draw(mx);
-  });
-  chartBox.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; draw(-1); });
-  setInterval(() => { if (isForecasting) return; points.shift(); const last = points[points.length - 1]; const nextVal = Math.max(10, Math.min(70, last + (Math.random() - 0.48) * 6)); points.push(nextVal); draw(); }, 1000);
+
+  // Ticks updating
+  setInterval(() => {
+    if (isForecasting) return;
+    points.shift();
+    const last = points[points.length - 1];
+    const change = (Math.random() - 0.48) * 6; // slightly positive drift
+    const nextVal = Math.max(10, Math.min(70, last + change));
+    points.push(nextVal);
+    draw();
+  }, 1000);
+
   btn.addEventListener('click', function(){
-    if (isForecasting) return; isForecasting = true; btn.textContent = 'Calculating...';
-    forecastPoints = []; let last = points[points.length - 1];
-    for (let i = 0; i < 15; i++) { last = Math.max(10, Math.min(70, last + (Math.random() - 0.42) * 8)); forecastPoints.push(last); }
-    let drawSteps = 0; const interval = setInterval(() => { drawSteps++; draw(); if (drawSteps > 10) { clearInterval(interval); setTimeout(() => { isForecasting = false; forecastPoints = []; btn.textContent = 'Run Stochastic Forecast'; draw(); }, 3000); } }, 80);
+    if (isForecasting) return;
+    
+    isForecasting = true;
+    btn.textContent = "Calculating stochastic models...";
+    
+    // Generate simulated forecast path
+    forecastPoints = [];
+    let last = points[points.length - 1];
+    for (let i = 0; i < 15; i++) {
+      last = Math.max(10, Math.min(70, last + (Math.random() - 0.42) * 8));
+      forecastPoints.push(last);
+    }
+    
+    let drawSteps = 0;
+    const interval = setInterval(() => {
+      drawSteps++;
+      draw();
+      if (drawSteps > 10) {
+        clearInterval(interval);
+        setTimeout(() => {
+          isForecasting = false;
+          forecastPoints = [];
+          btn.textContent = "Run Stochastic Forecast";
+          draw();
+        }, 3000);
+      }
+    }, 80);
   });
+  
+  // Initial draw
   draw();
 })();
 
-// 3. Connect 4
+// 3. Connect 4 Algorithm Simulator
 (function(){
   const boardEl = document.getElementById('c4-grid-board');
   const btn = document.getElementById('btn-connect4');
   const statusLabel = document.getElementById('label-connect4');
+  
+  // 6 rows (0-5), 7 cols (0-6)
   let board = Array.from({length: 6}, () => Array(7).fill(0));
   let gameOver = false;
+
   function initBoard() {
     boardEl.innerHTML = '';
     for (let col = 0; col < 7; col++) {
-      const colBtn = document.createElement('button'); colBtn.className = 'c4-col-btn'; colBtn.dataset.col = col;
-      for (let row = 5; row >= 0; row--) { const cell = document.createElement('div'); cell.className = 'c4-cell'; cell.id = 'c4-' + row + '-' + col; colBtn.appendChild(cell); }
+      const colBtn = document.createElement('button');
+      colBtn.className = 'c4-col-btn';
+      colBtn.dataset.col = col;
+      
+      // Render columns bottom-to-top visually to align with row indexing
+      // (row 0 is bottom, row 5 is top)
+      const cells = [];
+      for (let row = 5; row >= 0; row--) {
+        const cell = document.createElement('div');
+        cell.className = 'c4-cell';
+        cell.id = `c4-${row}-${col}`;
+        colBtn.appendChild(cell);
+        cells.push(cell);
+      }
+      
       colBtn.addEventListener('click', () => makePlayerMove(col));
       boardEl.appendChild(colBtn);
     }
-    statusLabel.textContent = 'YOUR TURN'; statusLabel.style.color = 'var(--accent)';
-    gameOver = false; board = Array.from({length: 6}, () => Array(7).fill(0));
+    statusLabel.textContent = "YOUR TURN";
+    statusLabel.style.color = "var(--accent)";
+    gameOver = false;
+    board = Array.from({length: 6}, () => Array(7).fill(0));
   }
+
   function checkWin(p) {
-    for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) if (board[r][c]===p&&board[r][c+1]===p&&board[r][c+2]===p&&board[r][c+3]===p) return true;
-    for (let r = 0; r < 3; r++) for (let c = 0; c < 7; c++) if (board[r][c]===p&&board[r+1][c]===p&&board[r+2][c]===p&&board[r+3][c]===p) return true;
-    for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) if (board[r][c]===p&&board[r+1][c+1]===p&&board[r+2][c+2]===p&&board[r+3][c+3]===p) return true;
-    for (let r = 3; r < 6; r++) for (let c = 0; c < 4; c++) if (board[r][c]===p&&board[r-1][c+1]===p&&board[r-2][c+2]===p&&board[r-3][c+3]===p) return true;
+    // Horizontal
+    for (let r = 0; r < 6; r++) {
+      for (let c = 0; c < 4; c++) {
+        if (board[r][c] === p && board[r][c+1] === p && board[r][c+2] === p && board[r][c+3] === p) return true;
+      }
+    }
+    // Vertical
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 7; c++) {
+        if (board[r][c] === p && board[r+1][c] === p && board[r+2][c] === p && board[r+3][c] === p) return true;
+      }
+    }
+    // Diagonal positive slope
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 4; c++) {
+        if (board[r][c] === p && board[r+1][c+1] === p && board[r+2][c+2] === p && board[r+3][c+3] === p) return true;
+      }
+    }
+    // Diagonal negative slope
+    for (let r = 3; r < 6; r++) {
+      for (let c = 0; c < 4; c++) {
+        if (board[r][c] === p && board[r-1][c+1] === p && board[r-2][c+2] === p && board[r-3][c+3] === p) return true;
+      }
+    }
     return false;
   }
-  function getLowestOpenRow(col) { for (let row = 0; row < 6; row++) if (board[row][col] === 0) return row; return -1; }
-  function makePlayerMove(col) {
-    if (gameOver) return; const row = getLowestOpenRow(col); if (row === -1) return;
-    board[row][col] = 1; const cellEl = document.getElementById('c4-' + row + '-' + col); cellEl.classList.add('p1');
-    cellEl.style.transform = 'translateY(-100px) scale(0.3)'; setTimeout(() => cellEl.style.transform = 'none', 50);
-    if (checkWin(1)) { statusLabel.textContent = 'YOU WON!'; statusLabel.style.color = 'var(--accent)'; gameOver = true; return; }
-    statusLabel.textContent = 'ALGO THINKING...'; statusLabel.style.color = 'var(--warn)'; gameOver = true;
-    setTimeout(() => makeAIMove(), 450);
-  }
-  function makeAIMove() {
-    let chosenCol = -1;
-    for (let col = 0; col < 7; col++) { const row = getLowestOpenRow(col); if (row !== -1) { board[row][col] = 2; if (checkWin(2)) chosenCol = col; board[row][col] = 0; } }
-    if (chosenCol === -1) for (let col = 0; col < 7; col++) { const row = getLowestOpenRow(col); if (row !== -1) { board[row][col] = 1; if (checkWin(1)) chosenCol = col; board[row][col] = 0; } }
-    if (chosenCol === -1) { const priority = [3,2,4,1,5,0,6]; for (let col of priority) if (getLowestOpenRow(col) !== -1) { chosenCol = col; break; } }
-    if (chosenCol !== -1) {
-      const row = getLowestOpenRow(chosenCol); board[row][chosenCol] = 2; const cellEl = document.getElementById('c4-' + row + '-' + chosenCol); cellEl.classList.add('p2');
-      cellEl.style.transform = 'translateY(-100px) scale(0.3)'; setTimeout(() => cellEl.style.transform = 'none', 50);
-      if (checkWin(2)) { statusLabel.textContent = 'AI WON!'; statusLabel.style.color = 'var(--danger)'; gameOver = true; return; }
+
+  function getLowestOpenRow(col) {
+    for (let row = 0; row < 6; row++) {
+      if (board[row][col] === 0) return row;
     }
-    const isTie = board[5].every(cell => cell !== 0);
-    if (isTie) { statusLabel.textContent = 'DRAW'; statusLabel.style.color = 'var(--muted)'; gameOver = true; return; }
-    gameOver = false; statusLabel.textContent = 'YOUR TURN'; statusLabel.style.color = 'var(--accent)';
+    return -1;
   }
-  btn.addEventListener('click', initBoard); initBoard();
+
+  function makePlayerMove(col) {
+    if (gameOver) return;
+    const row = getLowestOpenRow(col);
+    if (row === -1) return; // Column full
+
+    board[row][col] = 1;
+    document.getElementById(`c4-${row}-${col}`).classList.add('p1');
+
+    if (checkWin(1)) {
+      statusLabel.textContent = "YOU WON! BCNF CHECK ✅";
+      statusLabel.style.color = "var(--accent)";
+      gameOver = true;
+      return;
+    }
+
+    statusLabel.textContent = "ALGO THINKING...";
+    statusLabel.style.color = "var(--warn)";
+    gameOver = true; // Temporary disable player actions
+
+    setTimeout(() => {
+      makeAIMove();
+    }, 400);
+  }
+
+  function makeAIMove() {
+    // Simple mini-heuristics for AI to block or win
+    let chosenCol = -1;
+
+    // 1. Can AI win on next turn?
+    for (let col = 0; col < 7; col++) {
+      const row = getLowestOpenRow(col);
+      if (row !== -1) {
+        board[row][col] = 2;
+        if (checkWin(2)) chosenCol = col;
+        board[row][col] = 0; // backtrack
+      }
+    }
+
+    // 2. Can player win on next turn? If so, block them!
+    if (chosenCol === -1) {
+      for (let col = 0; col < 7; col++) {
+        const row = getLowestOpenRow(col);
+        if (row !== -1) {
+          board[row][col] = 1;
+          if (checkWin(1)) chosenCol = col;
+          board[row][col] = 0; // backtrack
+        }
+      }
+    }
+
+    // 3. Play center columns or random
+    if (chosenCol === -1) {
+      const priority = [3, 2, 4, 1, 5, 0, 6];
+      for (let col of priority) {
+        if (getLowestOpenRow(col) !== -1) {
+          chosenCol = col;
+          break;
+        }
+      }
+    }
+
+    if (chosenCol !== -1) {
+      const row = getLowestOpenRow(chosenCol);
+      board[row][chosenCol] = 2;
+      document.getElementById(`c4-${row}-${chosenCol}`).classList.add('p2');
+
+      if (checkWin(2)) {
+        statusLabel.textContent = "AI WON! TRY AGAIN.";
+        statusLabel.style.color = "var(--danger)";
+        gameOver = true;
+        return;
+      }
+    }
+
+    // Check tie
+    const isTie = board[5].every(cell => cell !== 0);
+    if (isTie) {
+      statusLabel.textContent = "DRAW GAME";
+      statusLabel.style.color = "var(--muted)";
+      gameOver = true;
+      return;
+    }
+
+    gameOver = false;
+    statusLabel.textContent = "YOUR TURN";
+    statusLabel.style.color = "var(--accent)";
+  }
+
+  btn.addEventListener('click', initBoard);
+  initBoard();
 })();
 
-// 4. DBMS — FIXED: Removed getElementById('dbms-query-str') that caused TypeError
+// 4. DBMS normalization query selector
 (function(){
+  const queryStrEl = document.getElementById('dbms-query-str');
   const tableEl = document.getElementById('dbms-table-element');
   const buttons = document.querySelectorAll('.dbms-query-btn');
   const label = document.getElementById('label-canteen');
-  const sqlInput = document.getElementById('sql-custom-input');
+
   const queries = {
-    1: { sql:"SELECT * FROM menu WHERE category='SOUTH_INDIAN';", header:["item_id","name","price"], rows:[["101","Idli (2 Pcs)","₹30.00"],["102","Masala Dosa","₹50.00"],["103","Veg Biryani","₹75.00"]], integrity:"DB INTEGRITY: 100%" },
-    2: { sql:"SELECT staff_id, name, role FROM canteen_staff;", header:["staff_id","name","role"], rows:[["201","Ramesh Kumar","Head Chef"],["202","Suresh Nair","Cashier"],["203","Ananya Sen","Manager"]], integrity:"MUTEX LOCK ACTIVE" },
-    3: { sql:"CHECK BCNF CONSTRAINTS;", header:["table_name","max_normal_form","bcnf_satisfied"], rows:[["menu","BCNF","TRUE ✅"],["canteen_staff","BCNF","TRUE ✅"],["orders","BCNF","TRUE ✅"],["order_items","BCNF","TRUE ✅"]], integrity:"BCNF VALIDATED ✅" }
+    1: {
+      sql: "SELECT * FROM menu WHERE category='SOUTH_INDIAN';",
+      header: ["item_id", "name", "price"],
+      rows: [
+        ["101", "Idli (2 Pcs)", "₹30.00"],
+        ["102", "Masala Dosa", "₹50.00"],
+        ["103", "Veg Biryani", "₹75.00"]
+      ],
+      integrity: "DB INTEGRITY: 100%"
+    },
+    2: {
+      sql: "SELECT order_id, customer, total FROM orders WHERE status='PENDING';",
+      header: ["order_id", "customer", "total"],
+      rows: [
+        ["7042", "Nitin K.", "₹120.00"],
+        ["7045", "Archana M.", "₹75.00"],
+        ["7049", "Vijay S.", "₹150.00"]
+      ],
+      integrity: "MUTEX LOCK ACTIVE"
+    },
+    3: {
+      sql: "CHECK BCNF CONSTRAINTS (Normalisation Schema Check);",
+      header: ["table_name", "max_normal_form", "bcnf_satisfied"],
+      rows: [
+        ["menu", "BCNF", "TRUE ✅"],
+        ["orders", "BCNF", "TRUE ✅"],
+        ["order_items", "3NF / BCNF", "TRUE ✅"],
+        ["canteen_staff", "BCNF", "TRUE ✅"]
+      ],
+      integrity: "BCNF VALIDATED ✅"
+    }
   };
-  function updateTable(data) {
-    label.textContent = data.integrity;
-    let html = '<thead><tr>';
-    data.header.forEach(h => html += '<th>' + h + '</th>');
-    html += '</tr></thead><tbody>';
-    data.rows.forEach(r => { html += '<tr>'; r.forEach(td => html += '<td>' + td + '</td>'); html += '</tr>'; });
-    html += '</tbody>';
-    tableEl.innerHTML = html;
-  }
+
   buttons.forEach(btn => {
     btn.addEventListener('click', function(){
       buttons.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
+
       const qId = this.dataset.q;
       const data = queries[qId];
-      sqlInput.value = data.sql;
-      updateTable(data);
+
+      queryStrEl.textContent = "Query: " + data.sql;
+      label.textContent = data.integrity;
+
+      // Render table
+      let tableHtml = "<thead><tr>";
+      data.header.forEach(h => {
+        tableHtml += `<th>${h}</th>`;
+      });
+      tableHtml += "</tr></thead><tbody>";
+
+      data.rows.forEach(r => {
+        tableHtml += "<tr>";
+        r.forEach(td => {
+          tableHtml += `<td>${td}</td>`;
+        });
+        tableHtml += "</tr>";
+      });
+      tableHtml += "</tbody>";
+
+      tableEl.innerHTML = tableHtml;
     });
-  });
-  sqlInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      const val = this.value.trim(); if (!val) return;
-      buttons.forEach(b => b.classList.remove('active'));
-      const cv = val.toUpperCase();
-      if (cv.includes('FROM MENU')) updateTable(queries[1]);
-      else if (cv.includes('FROM CANTEEN_STAFF') || cv.includes('FROM STAFF')) updateTable(queries[2]);
-      else if (cv.includes('BCNF') || cv.includes('NORMALIS')) updateTable(queries[3]);
-      else { label.textContent = 'SYNTAX ERROR'; tableEl.innerHTML = '<thead><tr><th style="color: var(--danger);">Error</th></tr></thead><tbody><tr><td>Syntax error. Try FROM menu, staff, or BCNF.</td></tr></tbody>'; }
-    }
   });
 })();
 </script>
